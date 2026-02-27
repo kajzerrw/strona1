@@ -105,7 +105,6 @@
       <label>Zdjęcie</label>
       <div class="drop-zone" id="dropZone">
         <input type="file" accept="image/*" id="fileInput" onchange="onFile(this)">
-        <div class="drop-icon">🖼️</div>
         <div class="drop-text">Przeciągnij lub <span>kliknij</span></div>
       </div>
       <img id="preview" class="preview">
@@ -135,10 +134,9 @@
     <div class="card">
       <label>Klucz szyfrowania zdjęcia</label>
       <input type="password" id="encKey" placeholder="Wpisz hasło szyfrowania…">
-      <div class="info">To hasło służy do szyfrowania zdjęcia — inne niż hasło dostępu do strony.</div>
     </div>
 
-    <button class="btn" onclick="encode()">⚡ Zaszyfruj — minimalny tekst</button>
+    <button class="btn" onclick="encode()">Zaszyfruj</button>
 
     <div class="card" id="encResult" style="display:none">
       <label>Zaszyfrowany tekst (Base32768)</label>
@@ -271,7 +269,6 @@ function detectFormats() {
     bestFormat = 'webp';
     bw.textContent = '✓ WebP — używany'; bw.className = 'fmt-badge best';
     bj.textContent = 'JPEG — fallback'; bj.className = 'fmt-badge fallback';
-    document.getElementById('fmtInfo').textContent = 'WebP ~25–35% mniejszy niż JPEG. Metadane (EXIF, GPS, ICC) usunięte przez canvas.';
   } else {
     bestFormat = 'jpeg';
     bw.textContent = '✗ WebP — brak wsparcia'; bw.className = 'fmt-badge';
