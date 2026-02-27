@@ -10,6 +10,27 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{--bg:#0a0a0f;--surface:#111118;--border:#222230;--accent:#00ff9d;--accent2:#7c3aed;--text:#e8e8f0;--muted:#555570;--danger:#ff4466}
   body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+
+  /* ── Lock screen ── */
+  #lockScreen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;padding:24px}
+  #lockScreen h2{font-family:'Syne',sans-serif;font-weight:800;font-size:2.2rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  #lockScreen .sub{color:var(--muted);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:48px}
+  #lockScreen .box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:16px}
+  #lockScreen label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  #lockScreen input{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:13px 16px;color:var(--text);font-family:'Space Mono',monospace;font-size:.9rem;outline:none;transition:border-color .2s;width:100%}
+  #lockScreen input:focus{border-color:var(--accent)}
+  #lockScreen button{padding:14px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;transition:opacity .2s,transform .1s;letter-spacing:.04em}
+  #lockScreen button:hover{opacity:.85}
+  #lockScreen button:active{transform:scale(.99)}
+  #lockScreen .err{color:var(--danger);font-size:.75rem;text-align:center;min-height:18px;transition:opacity .2s}
+  #lockScreen .err.hidden{opacity:0}
+  #lockScreen .shake{animation:shake .35s ease}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+  .lock-icon{font-size:3rem;margin-bottom:16px}
+
+  /* ── Main app (hidden until unlocked) ── */
+  #app{display:none;flex-direction:column;align-items:center;width:100%}
+
   h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
   .subtitle{color:var(--muted);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:48px}
   .tabs{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px;margin-bottom:32px}
@@ -20,7 +41,7 @@
   .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
   label{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
   input[type=password],textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Space Mono',monospace;font-size:.85rem;outline:none;transition:border-color .2s}
-  input:focus,textarea:focus{border-color:var(--accent)}
+  input[type=password]:focus,textarea:focus{border-color:var(--accent)}
   textarea{resize:vertical;min-height:90px;line-height:1.6;font-size:1rem}
   .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
   .drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:rgba(0,255,157,.03)}
@@ -36,6 +57,7 @@
   button.btn:hover{opacity:.85}
   button.btn:active{transform:scale(.99)}
   button.btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent);margin-top:10px}
+  button.btn.danger{background:transparent;color:var(--danger);border:1px solid var(--danger);margin-top:10px;font-size:.75rem;padding:9px}
   .output-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:1.15rem;word-break:break-all;line-height:2.1;max-height:150px;overflow-y:auto;color:var(--accent)}
   .stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px}
   .stat-val{color:var(--accent);font-size:1.05rem;font-weight:700}
@@ -48,81 +70,144 @@
   .fmt-badge{padding:6px 12px;border-radius:6px;font-size:.7rem;letter-spacing:.06em;border:1px solid var(--border);color:var(--muted)}
   .fmt-badge.best{border-color:var(--accent);color:var(--accent);background:rgba(0,255,157,.07)}
   .fmt-badge.fallback{border-color:#f59e0b;color:#f59e0b;background:rgba(245,158,11,.07)}
+  .topbar{display:flex;justify-content:flex-end;width:100%;max-width:680px;margin-bottom:-24px}
+  .lock-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:6px;font-family:'Space Mono',monospace;font-size:.68rem;cursor:pointer;transition:all .2s}
+  .lock-btn:hover{border-color:var(--danger);color:var(--danger)}
 </style>
 </head>
 <body>
 
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('encode')">Koduj</button>
-  <button class="tab" onclick="switchTab('decode')">Dekoduj</button>
-</div>
-
-<div class="panel active" id="panel-encode">
-  <div class="card">
-    <label>Zdjęcie</label>
-    <div class="drop-zone" id="dropZone">
-      <input type="file" accept="image/*" id="fileInput" onchange="onFile(this)">
-      <div class="drop-text">Przeciągnij lub <span>kliknij</span></div>
-    </div>
-    <img id="preview" class="preview">
-  </div>
-
-  <div class="card">
-    <label>Format</label>
-    <div class="fmt-row" id="fmtRow">
-      <span class="fmt-badge" id="badgeWebP">WebP — sprawdzam…</span>
-      <span class="fmt-badge" id="badgeJPEG">JPEG — zawsze dostępny</span>
-    </div>
-    <div class="sp"></div>
-    <label>Maks. rozmiar (px)</label>
-    <div class="row">
-      <input type="range" id="maxDim" min="60" max="400" step="20" value="180" oninput="dimVal.textContent=this.value+'px';scheduleEstimate()">
-      <span class="val" id="dimVal">180px</span>
-    </div>
-    <div class="sp"></div>
-    <label>Jakość</label>
-    <div class="row">
-      <input type="range" id="quality" min="1" max="60" value="15" oninput="qualVal.textContent=this.value+'%';scheduleEstimate()">
-      <span class="val" id="qualVal">15%</span>
-    </div>
-    <div class="info" id="fmtInfo">Wykrywam obsługę formatów…</div>
-  </div>
-
-  <div class="card">
-    <label>Klucz szyfrowania</label>
-    <input type="password" id="encKey" placeholder="Wpisz hasło…">
-    <div class="info">Bez poprawnego klucza obraz nie będzie możliwy do odtworzenia.</div>
-  </div>
-
-  <button class="btn" onclick="encode()">Zaszyfruj</button>
-
-  <div class="card" id="encResult" style="display:none">
-    <label>Zaszyfrowany tekst (Base32768)</label>
-    <div class="stats" id="encStats"></div>
-    <div class="output-box" id="encOutput"></div>
-    <button class="btn secondary" onclick="copyText()">Kopiuj tekst</button>
+<!-- ── LOCK SCREEN ── -->
+<div id="lockScreen">
+  <p class="sub">Wpisz hasło aby wejść</p>
+  <div class="box">
+    <label>Hasło dostępu</label>
+    <input type="password" id="pagePassInput" placeholder="Hasło…" onkeydown="if(event.key==='Enter')unlockPage()">
+    <div class="err hidden" id="lockErr">Błędne hasło</div>
+    <button onclick="unlockPage()">Wejdź</button>
   </div>
 </div>
 
-<div class="panel" id="panel-decode">
-  <div class="card">
-    <label>Zaszyfrowany tekst</label>
-    <textarea id="decInput" placeholder="Wklej zaszyfrowany tekst…"></textarea>
+<!-- ── MAIN APP ── -->
+<div id="app">
+  <div class="topbar">
+    <button class="lock-btn" onclick="lockPage()">Zablokuj · zmień hasło</button>
   </div>
-  <div class="card">
-    <label>Klucz szyfrowania</label>
-    <input type="password" id="decKey" placeholder="Wpisz hasło…">
+
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('encode')">Koduj</button>
+    <button class="tab" onclick="switchTab('decode')">Dekoduj</button>
   </div>
-  <button class="btn" onclick="decode()">Odszyfruj zdjęcie</button>
-  <div class="card" id="decResult" style="display:none">
-    <label>Odszyfrowane zdjęcie</label>
-    <img id="resultImg" class="result-img">
-    <button class="btn secondary" onclick="downloadImg()">Pobierz zdjęcie</button>
+
+  <div class="panel active" id="panel-encode">
+    <div class="card">
+      <label>Zdjęcie</label>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" accept="image/*" id="fileInput" onchange="onFile(this)">
+        <div class="drop-icon">🖼️</div>
+        <div class="drop-text">Przeciągnij lub <span>kliknij</span></div>
+      </div>
+      <img id="preview" class="preview">
+    </div>
+
+    <div class="card">
+      <label>Format</label>
+      <div class="fmt-row">
+        <span class="fmt-badge" id="badgeWebP">WebP — sprawdzam…</span>
+        <span class="fmt-badge" id="badgeJPEG">JPEG — zawsze dostępny</span>
+      </div>
+      <div class="sp"></div>
+      <label>Maks. rozmiar (px)</label>
+      <div class="row">
+        <input type="range" id="maxDim" min="60" max="400" step="20" value="180" oninput="dimVal.textContent=this.value+'px';scheduleEstimate()">
+        <span class="val" id="dimVal">180px</span>
+      </div>
+      <div class="sp"></div>
+      <label>Jakość</label>
+      <div class="row">
+        <input type="range" id="quality" min="1" max="60" value="15" oninput="qualVal.textContent=this.value+'%';scheduleEstimate()">
+        <span class="val" id="qualVal">15%</span>
+      </div>
+      <div class="info" id="fmtInfo">Wykrywam obsługę formatów…</div>
+    </div>
+
+    <div class="card">
+      <label>Klucz szyfrowania zdjęcia</label>
+      <input type="password" id="encKey" placeholder="Wpisz hasło szyfrowania…">
+      <div class="info">To hasło służy do szyfrowania zdjęcia — inne niż hasło dostępu do strony.</div>
+    </div>
+
+    <button class="btn" onclick="encode()">⚡ Zaszyfruj — minimalny tekst</button>
+
+    <div class="card" id="encResult" style="display:none">
+      <label>Zaszyfrowany tekst (Base32768)</label>
+      <div class="stats" id="encStats"></div>
+      <div class="output-box" id="encOutput"></div>
+      <button class="btn secondary" onclick="copyText()">Kopiuj tekst</button>
+    </div>
   </div>
-  <div class="error" id="decError">❌ Błędny klucz lub uszkodzony tekst</div>
-</div>
+
+  <div class="panel" id="panel-decode">
+    <div class="card">
+      <label>Zaszyfrowany tekst</label>
+      <textarea id="decInput" placeholder="Wklej zaszyfrowany tekst…"></textarea>
+    </div>
+    <div class="card">
+      <label>Klucz szyfrowania zdjęcia</label>
+      <input type="password" id="decKey" placeholder="Wpisz hasło szyfrowania…">
+    </div>
+    <button class="btn" onclick="decode()">Odszyfruj zdjęcie</button>
+    <div class="card" id="decResult" style="display:none">
+      <label>Odszyfrowane zdjęcie</label>
+      <img id="resultImg" class="result-img">
+      <button class="btn secondary" onclick="downloadImg()">Pobierz zdjęcie</button>
+    </div>
+    <div class="error" id="decError">❌ Błędny klucz lub uszkodzony tekst</div>
+  </div></div>
 
 <script>
+// ── Page password (hardcoded SHA-256 hash — aby zmienić hasło, zmień tę wartość) ──
+const CORRECT_HASH = '92638ac7e5cba92ea322071339bfef5002104cb924de8ca8486900d82f6df600';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function unlockPage() {
+  const pass = document.getElementById('pagePassInput').value;
+  const hash = await sha256(pass);
+
+  if (hash === CORRECT_HASH) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    document.getElementById('pagePassInput').value = '';
+    document.getElementById('lockErr').classList.add('hidden');
+  } else {
+    const err = document.getElementById('lockErr');
+    err.classList.remove('hidden');
+    const box = document.querySelector('#lockScreen .box');
+    box.classList.remove('shake');
+    void box.offsetWidth;
+    box.classList.add('shake');
+    document.getElementById('pagePassInput').value = '';
+    document.getElementById('pagePassInput').focus();
+  }
+}
+
+function lockPage() {
+  document.getElementById('app').style.display = 'none';
+  showLockScreen();
+}
+
+function showLockScreen() {
+  document.getElementById('lockScreen').style.display = 'flex';
+  setTimeout(() => document.getElementById('pagePassInput').focus(), 100);
+}
+
+window.addEventListener('load', () => showLockScreen());
+
 // ── Base32768 ─────────────────────────────────────────────────────────────────
 const B32768 = (() => {
   const START = 0x4000, BITS = 15, MASK = (1 << BITS) - 1;
@@ -173,43 +258,27 @@ function hashKey(k) {
   return (h >>> 0).toString(36).padStart(8, '0');
 }
 
-// ── Format detection (canvas encoding only) ───────────────────────────────────
-// NOTE: canvas.toDataURL() supports: PNG (always), JPEG, WebP (most browsers)
-// AVIF is NOT supported by canvas.toDataURL() in any browser — display-only.
+// ── Format detection ──────────────────────────────────────────────────────────
 let bestFormat = 'jpeg';
-
 function detectFormats() {
   const c = document.createElement('canvas');
   c.width = 4; c.height = 4;
   c.getContext('2d').fillRect(0, 0, 4, 4);
-
-  const webpSupported = c.toDataURL('image/webp').startsWith('data:image/webp');
-
+  const webpOk = c.toDataURL('image/webp').startsWith('data:image/webp');
   const bw = document.getElementById('badgeWebP');
   const bj = document.getElementById('badgeJPEG');
-
-  if (webpSupported) {
+  if (webpOk) {
     bestFormat = 'webp';
-    bw.textContent = '✓ WebP — używany (najlepszy dostępny)';
-    bw.className = 'fmt-badge best';
-    bj.textContent = 'JPEG — fallback';
-    bj.className = 'fmt-badge fallback';
-    document.getElementById('fmtInfo').textContent =
-      'WebP daje ~25–35% mniejszy plik niż JPEG. ' +
-      'AVIF byłby jeszcze lepszy, ale żadna przeglądarka nie obsługuje go przez canvas.toDataURL(). ' +
-      'Metadane (EXIF, GPS, ICC) usunięte automatycznie przez canvas.';
+    bw.textContent = '✓ WebP — używany'; bw.className = 'fmt-badge best';
+    bj.textContent = 'JPEG — fallback'; bj.className = 'fmt-badge fallback';
+    document.getElementById('fmtInfo').textContent = 'WebP ~25–35% mniejszy niż JPEG. Metadane (EXIF, GPS, ICC) usunięte przez canvas.';
   } else {
     bestFormat = 'jpeg';
-    bw.textContent = '✗ WebP — brak wsparcia (stara przeglądarka)';
-    bw.className = 'fmt-badge';
-    bj.textContent = '✓ JPEG — używany';
-    bj.className = 'fmt-badge best';
-    document.getElementById('fmtInfo').textContent =
-      'Twoja przeglądarka nie obsługuje WebP przez canvas — używam JPEG. ' +
-      'Metadane (EXIF, GPS, ICC) usunięte automatycznie przez canvas.';
+    bw.textContent = '✗ WebP — brak wsparcia'; bw.className = 'fmt-badge';
+    bj.textContent = '✓ JPEG — używany'; bj.className = 'fmt-badge best';
+    document.getElementById('fmtInfo').textContent = 'Używam JPEG. Metadane usunięte przez canvas.';
   }
 }
-
 detectFormats();
 
 // ── Image compression ─────────────────────────────────────────────────────────
@@ -226,8 +295,7 @@ function compressToBytes(dataUrl, maxDim, quality, format) {
       const c = document.createElement('canvas');
       c.width = w; c.height = h;
       c.getContext('2d').drawImage(img, 0, 0, w, h);
-      const mime = 'image/' + format;
-      const dataURL = c.toDataURL(mime, quality / 100);
+      const dataURL = c.toDataURL('image/' + format, quality / 100);
       const actualMime = dataURL.startsWith('data:image/webp') ? 'image/webp' : 'image/jpeg';
       const bytes = Uint8Array.from(atob(dataURL.split(',')[1]), c => c.charCodeAt(0));
       res({ bytes, mime: actualMime });
@@ -238,21 +306,18 @@ function compressToBytes(dataUrl, maxDim, quality, format) {
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let imageData = null, encodedText = '';
-
 let estimateTimer = null;
 function scheduleEstimate() {
   clearTimeout(estimateTimer);
-  estimateTimer = setTimeout(updateEstimate, 400);
-}
-
-async function updateEstimate() {
-  if (!imageData) return;
-  const maxDim = parseInt(document.getElementById('maxDim').value);
-  const quality = parseInt(document.getElementById('quality').value);
-  const { bytes } = await compressToBytes(imageData, maxDim, quality, bestFormat);
-  const deflated = pako.deflate(bytes, { level: 9 });
-  const chars = Math.ceil((8 + deflated.length) * 8 / 15);
-  document.getElementById('dimVal').textContent = maxDim + 'px · ~' + chars + ' zn.';
+  estimateTimer = setTimeout(async () => {
+    if (!imageData) return;
+    const maxDim = parseInt(document.getElementById('maxDim').value);
+    const quality = parseInt(document.getElementById('quality').value);
+    const { bytes } = await compressToBytes(imageData, maxDim, quality, bestFormat);
+    const deflated = pako.deflate(bytes, { level: 9 });
+    const chars = Math.ceil((8 + deflated.length) * 8 / 15);
+    document.getElementById('dimVal').textContent = maxDim + 'px · ~' + chars + ' zn.';
+  }, 400);
 }
 
 function switchTab(t) {
@@ -289,30 +354,27 @@ dz.addEventListener('drop', e => {
 async function encode() {
   if (!imageData) return alert('Wybierz zdjęcie!');
   const key = document.getElementById('encKey').value;
-  if (!key) return alert('Podaj klucz!');
+  if (!key) return alert('Podaj klucz szyfrowania!');
   const maxDim = parseInt(document.getElementById('maxDim').value);
   const quality = parseInt(document.getElementById('quality').value);
 
   const { bytes: raw, mime } = await compressToBytes(imageData, maxDim, quality, bestFormat);
   const deflated = pako.deflate(raw, { level: 9 });
-
   const hashBytes = new TextEncoder().encode(hashKey(key));
   const payload = new Uint8Array(8 + deflated.length);
   payload.set(hashBytes, 0); payload.set(deflated, 8);
-
   const stream = makeStream(key, payload.length);
   const encrypted = payload.map((b, i) => b ^ stream[i]);
   encodedText = B32768.encode(encrypted);
 
   const origBytes = imageData.split(',')[1].length * 3 / 4;
   const b64equiv = Math.ceil(encrypted.length * 4 / 3);
-
   document.getElementById('encOutput').textContent = encodedText;
   document.getElementById('encStats').innerHTML = `
     <div class="stat"><div class="stat-val">${encodedText.length}</div><div class="stat-label">Znaków</div></div>
     <div class="stat"><div class="stat-val">${(raw.length/1024).toFixed(1)}KB</div><div class="stat-label">${mime.split('/')[1].toUpperCase()}</div></div>
     <div class="stat"><div class="stat-val">${(origBytes/1024).toFixed(1)}KB</div><div class="stat-label">Oryginał</div></div>
-    <div class="stat"><div class="stat-val">${Math.round((1 - encodedText.length/b64equiv)*100)}%</div><div class="stat-label">Mniej niż B64</div></div>
+    <div class="stat"><div class="stat-val">${Math.round((1-encodedText.length/b64equiv)*100)}%</div><div class="stat-label">Mniej niż B64</div></div>
   `;
   document.getElementById('encResult').style.display = 'block';
 }
@@ -337,11 +399,7 @@ function decode() {
     const payload = encrypted.map((b, i) => b ^ stream[i]);
     if (new TextDecoder().decode(payload.slice(0, 8)) !== hashKey(key)) throw new Error('wrong key');
     const raw = pako.inflate(payload.slice(8));
-
-    // Detect format from magic bytes
-    let mime = 'image/jpeg';
-    if (raw[0]===0x52 && raw[1]===0x49) mime = 'image/webp'; // RIFF header
-
+    const mime = (raw[0]===0x52 && raw[1]===0x49) ? 'image/webp' : 'image/jpeg';
     let bin = ''; raw.forEach(b => bin += String.fromCharCode(b));
     document.getElementById('resultImg').src = `data:${mime};base64,` + btoa(bin);
     document.getElementById('decResult').style.display = 'block';
