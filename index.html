@@ -1,1 +1,364 @@
-<h1><center>67</center></h1>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImgCipher</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;800&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#0a0a0f;--surface:#111118;--border:#222230;--accent:#00ff9d;--accent2:#7c3aed;--text:#e8e8f0;--muted:#555570;--danger:#ff4466}
+  body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+  h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  .subtitle{color:var(--muted);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:48px}
+  .tabs{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px;margin-bottom:32px}
+  .tab{padding:10px 28px;border:none;background:transparent;color:var(--muted);font-family:'Space Mono',monospace;font-size:.8rem;cursor:pointer;border-radius:6px;transition:all .2s;letter-spacing:.05em}
+  .tab.active{background:var(--accent);color:#000;font-weight:700}
+  .panel{width:100%;max-width:680px;display:none;flex-direction:column;gap:20px}
+  .panel.active{display:flex}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+  label{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  input[type=password],textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Space Mono',monospace;font-size:.85rem;outline:none;transition:border-color .2s}
+  input:focus,textarea:focus{border-color:var(--accent)}
+  textarea{resize:vertical;min-height:90px;line-height:1.6;font-size:1rem}
+  .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+  .drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:rgba(0,255,157,.03)}
+  .drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .drop-icon{font-size:2rem;margin-bottom:10px}
+  .drop-text{color:var(--muted);font-size:.8rem}
+  .drop-text span{color:var(--accent)}
+  .preview{max-width:100%;max-height:260px;border-radius:8px;display:none;margin-top:14px;object-fit:contain}
+  .row{display:flex;align-items:center;gap:16px;margin-bottom:4px}
+  input[type=range]{flex:1;accent-color:var(--accent);height:4px}
+  .val{color:var(--accent);font-size:.82rem;min-width:48px;text-align:right}
+  button.btn{width:100%;padding:14px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;letter-spacing:.05em;transition:opacity .2s,transform .1s}
+  button.btn:hover{opacity:.85}
+  button.btn:active{transform:scale(.99)}
+  button.btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent);margin-top:10px}
+  .output-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:1.15rem;word-break:break-all;line-height:2.1;max-height:150px;overflow-y:auto;color:var(--accent)}
+  .stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+  .stat-val{color:var(--accent);font-size:1.05rem;font-weight:700}
+  .stat-label{color:var(--muted);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+  .result-img{max-width:100%;max-height:380px;border-radius:8px;object-fit:contain}
+  .error{color:var(--danger);font-size:.78rem;padding:12px 16px;background:rgba(255,68,102,.1);border:1px solid rgba(255,68,102,.3);border-radius:8px;display:none}
+  .info{font-size:.68rem;color:var(--muted);line-height:1.7;padding:12px;border-left:2px solid var(--accent2);margin-top:10px}
+  .sp{display:block;height:12px}
+  .fmt-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .fmt-badge{padding:6px 12px;border-radius:6px;font-size:.7rem;letter-spacing:.06em;border:1px solid var(--border);color:var(--muted)}
+  .fmt-badge.best{border-color:var(--accent);color:var(--accent);background:rgba(0,255,157,.07)}
+  .fmt-badge.fallback{border-color:#f59e0b;color:#f59e0b;background:rgba(245,158,11,.07)}
+</style>
+</head>
+<body>
+<h1>ImgCipher</h1>
+<p class="subtitle">WebP · bez metadanych · Base32768 · klucz wymagany</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('encode')">🔒 Koduj</button>
+  <button class="tab" onclick="switchTab('decode')">🔓 Dekoduj</button>
+</div>
+
+<div class="panel active" id="panel-encode">
+  <div class="card">
+    <label>Zdjęcie</label>
+    <div class="drop-zone" id="dropZone">
+      <input type="file" accept="image/*" id="fileInput" onchange="onFile(this)">
+      <div class="drop-icon">🖼️</div>
+      <div class="drop-text">Przeciągnij lub <span>kliknij</span></div>
+    </div>
+    <img id="preview" class="preview">
+  </div>
+
+  <div class="card">
+    <label>Format</label>
+    <div class="fmt-row" id="fmtRow">
+      <span class="fmt-badge" id="badgeWebP">WebP — sprawdzam…</span>
+      <span class="fmt-badge" id="badgeJPEG">JPEG — zawsze dostępny</span>
+    </div>
+    <div class="sp"></div>
+    <label>Maks. rozmiar (px)</label>
+    <div class="row">
+      <input type="range" id="maxDim" min="60" max="400" step="20" value="180" oninput="dimVal.textContent=this.value+'px';scheduleEstimate()">
+      <span class="val" id="dimVal">180px</span>
+    </div>
+    <div class="sp"></div>
+    <label>Jakość</label>
+    <div class="row">
+      <input type="range" id="quality" min="1" max="60" value="15" oninput="qualVal.textContent=this.value+'%';scheduleEstimate()">
+      <span class="val" id="qualVal">15%</span>
+    </div>
+    <div class="info" id="fmtInfo">Wykrywam obsługę formatów…</div>
+  </div>
+
+  <div class="card">
+    <label>Klucz szyfrowania</label>
+    <input type="password" id="encKey" placeholder="Wpisz hasło…">
+    <div class="info">Bez poprawnego klucza obraz nie będzie możliwy do odtworzenia.</div>
+  </div>
+
+  <button class="btn" onclick="encode()">⚡ Zaszyfruj — minimalny tekst</button>
+
+  <div class="card" id="encResult" style="display:none">
+    <label>Zaszyfrowany tekst (Base32768)</label>
+    <div class="stats" id="encStats"></div>
+    <div class="output-box" id="encOutput"></div>
+    <button class="btn secondary" onclick="copyText()">Kopiuj tekst</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-decode">
+  <div class="card">
+    <label>Zaszyfrowany tekst</label>
+    <textarea id="decInput" placeholder="Wklej zaszyfrowany tekst…"></textarea>
+  </div>
+  <div class="card">
+    <label>Klucz szyfrowania</label>
+    <input type="password" id="decKey" placeholder="Wpisz hasło…">
+  </div>
+  <button class="btn" onclick="decode()">Odszyfruj zdjęcie</button>
+  <div class="card" id="decResult" style="display:none">
+    <label>Odszyfrowane zdjęcie</label>
+    <img id="resultImg" class="result-img">
+    <button class="btn secondary" onclick="downloadImg()">Pobierz zdjęcie</button>
+  </div>
+  <div class="error" id="decError">❌ Błędny klucz lub uszkodzony tekst</div>
+</div>
+
+<script>
+// ── Base32768 ─────────────────────────────────────────────────────────────────
+const B32768 = (() => {
+  const START = 0x4000, BITS = 15, MASK = (1 << BITS) - 1;
+  function encode(bytes) {
+    let out = '', buf = 0, bits = 0;
+    for (let i = 0; i < bytes.length; i++) {
+      buf = (buf << 8) | bytes[i]; bits += 8;
+      if (bits >= BITS) { bits -= BITS; out += String.fromCharCode(START + ((buf >> bits) & MASK)); }
+    }
+    if (bits > 0) {
+      out += String.fromCharCode(START + ((buf << (BITS - bits)) & MASK));
+      out += String.fromCharCode(0x3000 + bits);
+    }
+    return out;
+  }
+  function decode(str) {
+    if (!str.length) return new Uint8Array(0);
+    let remBits = 0, s = str;
+    const last = str.charCodeAt(str.length - 1);
+    if (last >= 0x3001 && last <= 0x3007) { remBits = last - 0x3000; s = str.slice(0, -1); }
+    let buf = 0, bits = 0; const out = [];
+    for (let i = 0; i < s.length; i++) {
+      const isLast = (i === s.length - 1) && remBits > 0;
+      const bIn = isLast ? remBits : BITS;
+      const val = s.charCodeAt(i) - START;
+      const data = isLast ? (val >> (BITS - remBits)) : val;
+      buf = (buf << bIn) | data; bits += bIn;
+      while (bits >= 8) { bits -= 8; out.push((buf >> bits) & 0xFF); }
+    }
+    return new Uint8Array(out);
+  }
+  return { encode, decode };
+})();
+
+// ── RC4 keystream ─────────────────────────────────────────────────────────────
+function makeStream(key, len) {
+  const k = new Uint8Array(256), s = new Uint8Array(256);
+  for (let i = 0; i < 256; i++) { s[i] = i; k[i] = key.charCodeAt(i % key.length); }
+  for (let i = 0, j = 0; i < 256; i++) { j=(j+s[i]+k[i])&255; [s[i],s[j]]=[s[j],s[i]]; }
+  const out = new Uint8Array(len); let i = 0, j = 0;
+  for (let x = 0; x < len; x++) { i=(i+1)&255; j=(j+s[i])&255; [s[i],s[j]]=[s[j],s[i]]; out[x]=s[(s[i]+s[j])&255]; }
+  return out;
+}
+
+function hashKey(k) {
+  let h = 0;
+  for (let i = 0; i < k.length; i++) h = ((h << 5) - h + k.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36).padStart(8, '0');
+}
+
+// ── Format detection (canvas encoding only) ───────────────────────────────────
+// NOTE: canvas.toDataURL() supports: PNG (always), JPEG, WebP (most browsers)
+// AVIF is NOT supported by canvas.toDataURL() in any browser — display-only.
+let bestFormat = 'jpeg';
+
+function detectFormats() {
+  const c = document.createElement('canvas');
+  c.width = 4; c.height = 4;
+  c.getContext('2d').fillRect(0, 0, 4, 4);
+
+  const webpSupported = c.toDataURL('image/webp').startsWith('data:image/webp');
+
+  const bw = document.getElementById('badgeWebP');
+  const bj = document.getElementById('badgeJPEG');
+
+  if (webpSupported) {
+    bestFormat = 'webp';
+    bw.textContent = '✓ WebP — używany (najlepszy dostępny)';
+    bw.className = 'fmt-badge best';
+    bj.textContent = 'JPEG — fallback';
+    bj.className = 'fmt-badge fallback';
+    document.getElementById('fmtInfo').textContent =
+      'WebP daje ~25–35% mniejszy plik niż JPEG. ' +
+      'AVIF byłby jeszcze lepszy, ale żadna przeglądarka nie obsługuje go przez canvas.toDataURL(). ' +
+      'Metadane (EXIF, GPS, ICC) usunięte automatycznie przez canvas.';
+  } else {
+    bestFormat = 'jpeg';
+    bw.textContent = '✗ WebP — brak wsparcia (stara przeglądarka)';
+    bw.className = 'fmt-badge';
+    bj.textContent = '✓ JPEG — używany';
+    bj.className = 'fmt-badge best';
+    document.getElementById('fmtInfo').textContent =
+      'Twoja przeglądarka nie obsługuje WebP przez canvas — używam JPEG. ' +
+      'Metadane (EXIF, GPS, ICC) usunięte automatycznie przez canvas.';
+  }
+}
+
+detectFormats();
+
+// ── Image compression ─────────────────────────────────────────────────────────
+function compressToBytes(dataUrl, maxDim, quality, format) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => {
+      let w = img.width, h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+        else { w = Math.round(w * maxDim / h); h = maxDim; }
+      }
+      w = Math.max(1, w); h = Math.max(1, h);
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      const mime = 'image/' + format;
+      const dataURL = c.toDataURL(mime, quality / 100);
+      const actualMime = dataURL.startsWith('data:image/webp') ? 'image/webp' : 'image/jpeg';
+      const bytes = Uint8Array.from(atob(dataURL.split(',')[1]), c => c.charCodeAt(0));
+      res({ bytes, mime: actualMime });
+    };
+    img.src = dataUrl;
+  });
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let imageData = null, encodedText = '';
+
+let estimateTimer = null;
+function scheduleEstimate() {
+  clearTimeout(estimateTimer);
+  estimateTimer = setTimeout(updateEstimate, 400);
+}
+
+async function updateEstimate() {
+  if (!imageData) return;
+  const maxDim = parseInt(document.getElementById('maxDim').value);
+  const quality = parseInt(document.getElementById('quality').value);
+  const { bytes } = await compressToBytes(imageData, maxDim, quality, bestFormat);
+  const deflated = pako.deflate(bytes, { level: 9 });
+  const chars = Math.ceil((8 + deflated.length) * 8 / 15);
+  document.getElementById('dimVal').textContent = maxDim + 'px · ~' + chars + ' zn.';
+}
+
+function switchTab(t) {
+  document.querySelectorAll('.tab').forEach((el, i) =>
+    el.classList.toggle('active', (i===0&&t==='encode')||(i===1&&t==='decode')));
+  document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+  document.getElementById('panel-' + t).classList.add('active');
+}
+
+function onFile(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const p = document.getElementById('preview');
+    p.src = e.target.result; p.style.display = 'block';
+    imageData = e.target.result;
+    scheduleEstimate();
+  };
+  reader.readAsDataURL(file);
+}
+
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) {
+    document.getElementById('fileInput').files = e.dataTransfer.files;
+    onFile(document.getElementById('fileInput'));
+  }
+});
+
+async function encode() {
+  if (!imageData) return alert('Wybierz zdjęcie!');
+  const key = document.getElementById('encKey').value;
+  if (!key) return alert('Podaj klucz!');
+  const maxDim = parseInt(document.getElementById('maxDim').value);
+  const quality = parseInt(document.getElementById('quality').value);
+
+  const { bytes: raw, mime } = await compressToBytes(imageData, maxDim, quality, bestFormat);
+  const deflated = pako.deflate(raw, { level: 9 });
+
+  const hashBytes = new TextEncoder().encode(hashKey(key));
+  const payload = new Uint8Array(8 + deflated.length);
+  payload.set(hashBytes, 0); payload.set(deflated, 8);
+
+  const stream = makeStream(key, payload.length);
+  const encrypted = payload.map((b, i) => b ^ stream[i]);
+  encodedText = B32768.encode(encrypted);
+
+  const origBytes = imageData.split(',')[1].length * 3 / 4;
+  const b64equiv = Math.ceil(encrypted.length * 4 / 3);
+
+  document.getElementById('encOutput').textContent = encodedText;
+  document.getElementById('encStats').innerHTML = `
+    <div class="stat"><div class="stat-val">${encodedText.length}</div><div class="stat-label">Znaków</div></div>
+    <div class="stat"><div class="stat-val">${(raw.length/1024).toFixed(1)}KB</div><div class="stat-label">${mime.split('/')[1].toUpperCase()}</div></div>
+    <div class="stat"><div class="stat-val">${(origBytes/1024).toFixed(1)}KB</div><div class="stat-label">Oryginał</div></div>
+    <div class="stat"><div class="stat-val">${Math.round((1 - encodedText.length/b64equiv)*100)}%</div><div class="stat-label">Mniej niż B64</div></div>
+  `;
+  document.getElementById('encResult').style.display = 'block';
+}
+
+function copyText() {
+  navigator.clipboard.writeText(encodedText).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Skopiowano!';
+    setTimeout(() => btn.textContent = 'Kopiuj tekst', 1500);
+  });
+}
+
+function decode() {
+  const text = document.getElementById('decInput').value.trim();
+  const key = document.getElementById('decKey').value;
+  document.getElementById('decError').style.display = 'none';
+  document.getElementById('decResult').style.display = 'none';
+  if (!text || !key) return alert('Podaj tekst i klucz!');
+  try {
+    const encrypted = B32768.decode(text);
+    const stream = makeStream(key, encrypted.length);
+    const payload = encrypted.map((b, i) => b ^ stream[i]);
+    if (new TextDecoder().decode(payload.slice(0, 8)) !== hashKey(key)) throw new Error('wrong key');
+    const raw = pako.inflate(payload.slice(8));
+
+    // Detect format from magic bytes
+    let mime = 'image/jpeg';
+    if (raw[0]===0x52 && raw[1]===0x49) mime = 'image/webp'; // RIFF header
+
+    let bin = ''; raw.forEach(b => bin += String.fromCharCode(b));
+    document.getElementById('resultImg').src = `data:${mime};base64,` + btoa(bin);
+    document.getElementById('decResult').style.display = 'block';
+  } catch(e) {
+    document.getElementById('decError').style.display = 'block';
+  }
+}
+
+function downloadImg() {
+  const img = document.getElementById('resultImg');
+  const ext = img.src.includes('/webp') ? 'webp' : 'jpg';
+  const a = document.createElement('a');
+  a.href = img.src; a.download = 'odszyfrowane.' + ext; a.click();
+}
+</script>
+</body>
+</html>
