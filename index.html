@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIUL</title>
+<title>ImgCipher</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;800&display=swap');
@@ -51,10 +51,12 @@
 </style>
 </head>
 <body>
+<h1>ImgCipher</h1>
+<p class="subtitle">WebP · bez metadanych · Base32768 · klucz wymagany</p>
 
 <div class="tabs">
-  <button class="tab active" onclick="switchTab('encode')">🔒 Koduj</button>
-  <button class="tab" onclick="switchTab('decode')">🔓 Dekoduj</button>
+  <button class="tab active" onclick="switchTab('encode')">Koduj</button>
+  <button class="tab" onclick="switchTab('decode')">Dekoduj</button>
 </div>
 
 <div class="panel active" id="panel-encode">
@@ -91,9 +93,10 @@
   <div class="card">
     <label>Klucz szyfrowania</label>
     <input type="password" id="encKey" placeholder="Wpisz hasło…">
+    <div class="info">Bez poprawnego klucza obraz nie będzie możliwy do odtworzenia.</div>
   </div>
 
-  <button class="btn" onclick="encode()">⚡ Zaszyfruj — minimalny tekst</button>
+  <button class="btn" onclick="encode()">Zaszyfruj</button>
 
   <div class="card" id="encResult" style="display:none">
     <label>Zaszyfrowany tekst (Base32768)</label>
@@ -172,6 +175,9 @@ function hashKey(k) {
   return (h >>> 0).toString(36).padStart(8, '0');
 }
 
+// ── Format detection (canvas encoding only) ───────────────────────────────────
+// NOTE: canvas.toDataURL() supports: PNG (always), JPEG, WebP (most browsers)
+// AVIF is NOT supported by canvas.toDataURL() in any browser — display-only.
 let bestFormat = 'jpeg';
 
 function detectFormats() {
@@ -190,13 +196,19 @@ function detectFormats() {
     bw.className = 'fmt-badge best';
     bj.textContent = 'JPEG — fallback';
     bj.className = 'fmt-badge fallback';
-    
+    document.getElementById('fmtInfo').textContent =
+      'WebP daje ~25–35% mniejszy plik niż JPEG. ' +
+      'AVIF byłby jeszcze lepszy, ale żadna przeglądarka nie obsługuje go przez canvas.toDataURL(). ' +
+      'Metadane (EXIF, GPS, ICC) usunięte automatycznie przez canvas.';
   } else {
     bestFormat = 'jpeg';
+    bw.textContent = '✗ WebP — brak wsparcia (stara przeglądarka)';
     bw.className = 'fmt-badge';
+    bj.textContent = '✓ JPEG — używany';
     bj.className = 'fmt-badge best';
     document.getElementById('fmtInfo').textContent =
       'Twoja przeglądarka nie obsługuje WebP przez canvas — używam JPEG. ' +
+      'Metadane (EXIF, GPS, ICC) usunięte automatycznie przez canvas.';
   }
 }
 
