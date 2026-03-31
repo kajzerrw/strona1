@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Kruszywa S.A. – Lubienia</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
@@ -24,25 +25,26 @@
       font-family: 'Source Sans 3', sans-serif;
       background: var(--light);
       color: var(--brown);
+      overflow-x: hidden;
     }
 
     /* ── NAV ── */
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       background: var(--brown);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
-      height: 60px;
+      height: 70px;
       box-shadow: 0 2px 8px rgba(0,0,0,.35);
     }
 
     .nav-logo {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--sand);
       letter-spacing: .05em;
@@ -73,7 +75,7 @@
       position: relative;
       background: var(--brown);
       color: var(--white);
-      padding: 90px 2rem 80px;
+      padding: 120px 2rem 100px;
       overflow: hidden;
       text-align: center;
     }
@@ -82,14 +84,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        repeating-linear-gradient(
-          135deg,
-          transparent,
-          transparent 18px,
-          rgba(255,255,255,.025) 18px,
-          rgba(255,255,255,.025) 19px
-        );
+      background: repeating-linear-gradient(135deg, transparent, transparent 18px, rgba(255,255,255,.02) 18px, rgba(255,255,255,.02) 19px);
     }
 
     .hero-badge {
@@ -103,27 +98,30 @@
       padding: .3rem .9rem;
       border-radius: 2px;
       margin-bottom: 1.4rem;
+      position: relative;
     }
 
     .hero h1 {
       font-family: 'Oswald', sans-serif;
-      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
       font-weight: 700;
       letter-spacing: .04em;
       line-height: 1.1;
       color: var(--sand);
+      position: relative;
     }
 
     .hero h1 span { color: var(--white); }
 
     .hero p {
       margin-top: 1.2rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 300;
       color: #ccc;
-      max-width: 540px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      position: relative;
     }
 
     .hero-cta {
@@ -132,6 +130,7 @@
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
+      position: relative;
     }
 
     .btn {
@@ -139,21 +138,21 @@
       font-size: .95rem;
       letter-spacing: .1em;
       text-transform: uppercase;
-      padding: .75rem 2rem;
+      padding: .9rem 2.2rem;
       border-radius: 3px;
       text-decoration: none;
-      transition: background .2s, color .2s;
+      transition: all .3s;
       cursor: pointer;
       border: none;
     }
 
     .btn-primary { background: var(--accent); color: var(--white); }
-    .btn-primary:hover { background: #b8740f; }
+    .btn-primary:hover { background: #b8740f; transform: translateY(-2px); }
     .btn-outline { background: transparent; color: var(--sand); border: 2px solid var(--sand); }
     .btn-outline:hover { background: var(--sand); color: var(--brown); }
 
     /* ── SECTIONS ── */
-    section { padding: 70px 2rem; }
+    section { padding: 90px 2rem; max-width: 1200px; margin: 0 auto; }
 
     .section-label {
       font-family: 'Oswald', sans-serif;
@@ -166,372 +165,330 @@
 
     .section-title {
       font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 600;
       color: var(--brown);
       margin-bottom: 1rem;
     }
 
-    .section-sub {
-      font-size: 1rem;
-      color: #555;
-      max-width: 560px;
-      line-height: 1.7;
-    }
-
     .divider {
-      width: 50px;
-      height: 3px;
+      width: 60px;
+      height: 4px;
       background: var(--accent);
-      margin: 1rem 0 2.5rem;
+      margin: 1.5rem 0 2.5rem;
     }
 
     /* ── OFERTA ── */
-    #oferta { background: var(--white); }
+    #oferta { background: var(--white); max-width: 100%; }
+    .container { max-width: 1200px; margin: 0 auto; }
 
     .oferta-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
       margin-top: 2.5rem;
     }
 
     .oferta-card {
       background: var(--light);
-      border-top: 4px solid var(--accent);
-      border-radius: 4px;
-      padding: 2rem 1.6rem;
-      transition: box-shadow .2s, transform .2s;
+      border-top: 5px solid var(--accent);
+      padding: 2.5rem 2rem;
+      transition: all .3s ease;
     }
 
     .oferta-card:hover {
-      box-shadow: 0 8px 28px rgba(59,43,26,.12);
-      transform: translateY(-3px);
-    }
-
-    .oferta-card h3 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--brown);
-      margin-bottom: .6rem;
-    }
-
-    .oferta-card p {
-      font-size: .95rem;
-      color: #555;
-      line-height: 1.6;
+      box-shadow: 0 15px 35px rgba(59,43,26,.15);
+      transform: translateY(-5px);
     }
 
     /* ── DLACZEGO MY ── */
-    #dlaczego { background: var(--brown); color: var(--white); }
+    #dlaczego { background: var(--brown); color: var(--white); max-width: 100%; }
     #dlaczego .section-title { color: var(--sand); }
     #dlaczego .section-sub { color: #ccc; }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
     }
 
     .feature {
-      padding: 1.6rem;
-      border: 1px solid rgba(201,169,110,.25);
+      padding: 2rem;
+      border: 1px solid rgba(201,169,110,.2);
       border-radius: 4px;
     }
 
     .feature-num {
       font-family: 'Oswald', sans-serif;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--accent);
-      line-height: 1;
+      opacity: .8;
     }
 
-    .feature h4 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin: .5rem 0 .4rem;
-      color: var(--sand);
+    /* ── KADRA ── */
+    #kadra { background: var(--white); max-width: 100%; }
+    .kadra-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
     }
 
-    .feature p { font-size: .9rem; color: #bbb; line-height: 1.5; }
+    .kadra-card {
+      background: var(--light);
+      padding: 1.8rem;
+      border-left: 5px solid var(--accent);
+      transition: 0.3s;
+    }
+
+    .kadra-card-zarząd { border-left-color: var(--earth); }
 
     /* ── GODZINY ── */
-    #godziny { background: var(--light); }
-
+    #godziny { background: var(--light); max-width: 100%; }
     .hours-table {
       width: 100%;
-      max-width: 500px;
+      max-width: 600px;
       border-collapse: collapse;
-      margin-top: 1.5rem;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
-
-    .hours-table tr { border-bottom: 1px solid #ddd; }
-    .hours-table tr:last-child { border-bottom: none; }
-
-    .hours-table td {
-      padding: .7rem .5rem;
-      font-size: .95rem;
-      color: var(--brown);
-    }
-
-    .hours-table td:first-child { font-weight: 600; width: 45%; }
-    .hours-table td:last-child { color: #555; }
-
-    .closed { color: #c0392b !important; font-weight: 600; }
+    .hours-table td { padding: 1rem; border-bottom: 1px solid #eee; }
 
     /* ── KONTAKT ── */
-    #kontakt { background: var(--white); }
-
+    #kontakt { background: var(--light); max-width: 100%; }
     .kontakt-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
+    .kontakt-card { background: white; padding: 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
 
-    .kontakt-card {
-      background: var(--light);
-      border-radius: 4px;
-      padding: 1.8rem;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
+    .map-wrap { margin-top: 3rem; height: 450px; border: 2px solid #ddd; }
+    .map-wrap iframe { width: 100%; height: 100%; border: 0; }
 
-    .kontakt-card h4 {
-      font-family: 'Oswald', sans-serif;
-      font-size: .8rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .35rem;
-    }
+    /* ── STOPKA ── */
+    footer { background: var(--brown); color: #888; text-align: center; padding: 3rem 1rem; }
+    footer span { color: var(--sand); font-weight: bold; }
 
-    .kontakt-card p, .kontakt-card a {
-      font-size: 1rem;
-      color: var(--brown);
-      text-decoration: none;
-      font-weight: 600;
-      word-break: break-all;
-    }
-
-    .kontakt-card a:hover { color: var(--accent); }
-
-    .kontakt-card .sub {
-      font-size: .85rem;
-      color: #777;
-      font-weight: 300;
-      margin-top: .2rem;
-    }
-
-    /* ── MAPA ── */
-    .map-wrap {
-      margin-top: 3rem;
-      border-radius: 4px;
-      overflow: hidden;
-      border: 2px solid #ddd;
-    }
-
-    .map-wrap iframe {
-      width: 100%;
-      height: 420px;
-      display: block;
-      border: none;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--brown);
-      color: #999;
-      text-align: center;
-      padding: 1.8rem 1rem;
-      font-size: .85rem;
-    }
-
-    footer span { color: var(--sand); }
-
-    /* ── RESPONSIVE NAV ── */
-    @media (max-width: 600px) {
-      .nav-links { gap: 1.1rem; }
-      .nav-links a { font-size: .8rem; }
-    }
-
-    /* ── ANIMATIONS ── */
+    /* ── ANIMACJE (KLUCZ DO NAPRAWY) ── */
     .fade-in {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .5s ease, transform .5s ease;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; } /* Uproszczenie dla mobile */
+      section { padding: 60px 1.5rem; }
+    }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">Kruszywa S.A.</a>
+  <a class="nav-logo" href="#">KRUSZYWA S.A.</a>
   <ul class="nav-links">
     <li><a href="#oferta">Oferta</a></li>
+    <li><a href="#kadra">Kadra</a></li>
     <li><a href="#godziny">Godziny</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Lubienia · Pow. Starachowicki</div>
+  <div class="hero-badge">Lubienia · Powiat Starachowicki</div>
   <h1>Kruszywa<br /><span>S.A.</span></h1>
-  <p>Sprzedaż kruszyw budowlanych – żwir, piasek, węgiel. Obsługujemy klientów indywidualnych i firmy budowlane.</p>
+  <p>Najwyższej jakości żwir, piasek i węgiel. Obsługujemy inwestycje budowlane oraz klientów indywidualnych w regionie.</p>
   <div class="hero-cta">
-    <a href="#oferta" class="btn btn-primary">Nasza oferta</a>
-    <a href="#kontakt" class="btn btn-outline">Skontaktuj się</a>
+    <a href="#oferta" class="btn btn-primary">Zobacz ofertę</a>
+    <a href="#kontakt" class="btn btn-outline">Kontakt</a>
   </div>
 </section>
 
-<!-- OFERTA -->
-<section id="oferta">
-  <div class="fade-in">
-    <p class="section-label">Co oferujemy</p>
-    <h2 class="section-title">Nasza oferta</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Dostarczamy wysokiej jakości materiały budowlane prosto z kopalni. Sprzedaż detaliczna i hurtowa.</p>
-  </div>
+<div class="container">
+  <section id="oferta">
+    <div class="fade-in">
+      <p class="section-label">Co oferujemy</p>
+      <h2 class="section-title">Nasza oferta</h2>
+      <div class="divider"></div>
+    </div>
 
-  <div class="oferta-grid">
-    <div class="oferta-card fade-in">
-      <h3>Żwir</h3>
-      <p>Żwir naturalny różnych frakcji, idealny do fundamentów, dróg, ogrodów oraz prac budowlanych.</p>
+    <div class="oferta-grid">
+      <div class="oferta-card fade-in">
+        <h3>Żwir</h3>
+        <p>Naturalny, płukany, o różnych frakcjach. Doskonały do betonów i drenaży.</p>
+      </div>
+      <div class="oferta-card fade-in">
+        <h3>Piasek</h3>
+        <p>Piasek kopalniany i płukany. Idealny do murowania, tynkowania i podsypek.</p>
+      </div>
+      <div class="oferta-card fade-in">
+        <h3>Węgiel i Ekogroszek</h3>
+        <p>Wysokokaloryczny opał na sezon grzewczy. Sprzedaż luzem i w workach.</p>
+      </div>
     </div>
-    <div class="oferta-card fade-in">
-      <h3>Piasek</h3>
-      <p>Piasek budowlany i podsypkowy wysokiej czystości – do tynków, wylewek, ogrodów i placów zabaw.</p>
-    </div>
-    <div class="oferta-card fade-in">
-      <h3>Węgiel</h3>
-      <p>Węgiel opałowy – wysokiej jakości surowiec na sezon grzewczy dla domów i firm.</p>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<!-- DLACZEGO MY -->
 <section id="dlaczego">
-  <div class="fade-in">
-    <p class="section-label">Dlaczego my</p>
-    <h2 class="section-title">Solidna obsługa,<br/>sprawdzone materiały</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Działamy lokalnie na terenie powiatu starachwicokiego i okolic. Stawiamy na jakość i terminowość.</p>
-  </div>
-
-  <div class="features-grid">
-    <div class="feature fade-in">
-      <div class="feature-num">01</div>
-      <h4>Lokalna firma</h4>
-      <p>Działamy w Lubienii i okolicach – jesteśmy blisko naszych klientów.</p>
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Atuty</p>
+      <h2 class="section-title">Dlaczego my?</h2>
+      <div class="divider"></div>
     </div>
-    <div class="feature fade-in">
-      <div class="feature-num">02</div>
-      <h4>Szeroka oferta</h4>
-      <p>Żwir, piasek, węgiel – wszystko w jednym miejscu.</p>
-    </div>
-    <div class="feature fade-in">
-      <div class="feature-num">03</div>
-      <h4>Długie godziny</h4>
-      <p>Otwarte 7 dni w tygodniu od godz. 7:00 do 21:00.</p>
-    </div>
-    <div class="feature fade-in">
-      <div class="feature-num">04</div>
-      <h4>Szybki kontakt</h4>
-      <p>Zadzwoń lub napisz – odpowiadamy sprawnie i bez zbędnych formalności.</p>
+    <div class="features-grid">
+      <div class="feature fade-in">
+        <div class="feature-num">01</div>
+        <h4>Dostępność 7 dni w tygodniu</h4>
+        <p>Pracujemy od rana do wieczora, również w niedziele handlowe.</p>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">02</div>
+        <h4>Własny transport</h4>
+        <p>Dostarczamy zamówiony towar szybko i pod wskazany adres.</p>
+      </div>
+      <div class="feature fade-in">
+        <div class="feature-num">03</div>
+        <h4>Lokalna jakość</h4>
+        <p>Znamy potrzeby lokalnego rynku budowlanego w Lubieni i okolicach.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- GODZINY -->
+<section id="kadra">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Zespół</p>
+      <h2 class="section-title">Kadra Zarządzająca</h2>
+      <div class="divider"></div>
+<div class="kadra-grid">
+
+      <div class="kadra-card kadra-card-zarząd fade-in">
+        <p class="kadra-role-main">Prezes Zarządu</p>
+        <p class="kadra-name">Filip Kozieł</p>
+      </div>
+
+      <div class="kadra-card kadra-card-zarząd fade-in">
+        <p class="kadra-role-main">Wiceprezes</p>
+        <p class="kadra-name">Bartosz Szymon Marczak</p>
+        <p class="kadra-role-extra">Główny Sekretarz</p>
+      </div>
+
+      <div class="kadra-card kadra-card-zarząd fade-in">
+        <p class="kadra-role-main">Wiceprezes</p>
+        <p class="kadra-name">Makary Majchrzyk</p>
+        <p class="kadra-role-extra">Kierownik Działu IT</p>
+      </div>
+
+      <div class="kadra-card kadra-card-zarząd fade-in">
+        <p class="kadra-role-main">Członek Zarządu</p>
+        <p class="kadra-name">Filip Mnich</p>
+      </div>
+
+      <div class="kadra-card fade-in">
+        <p class="kadra-role-main">Kierownik</p>
+        <p class="kadra-name">Marek Adach</p>
+        <p class="kadra-role-extra">Dział Załadunku</p>
+      </div>
+
+      <div class="kadra-card fade-in">
+        <p class="kadra-role-main">Kierownik</p>
+        <p class="kadra-name">Gabriel Grędziak</p>
+        <p class="kadra-role-extra">Dział Inwestycyjny</p>
+      </div>
+
+      <div class="kadra-card fade-in">
+        <p class="kadra-role-main">Kierownik</p>
+        <p class="kadra-name">Natan Kopacz</p>
+        <p class="kadra-role-extra">Dział Produkcji</p>
+      </div>
+
+      <div class="kadra-card fade-in">
+        <p class="kadra-role-main">Zastępca Kierownika</p>
+        <p class="kadra-name">Igor Łojek</p>
+        <p class="kadra-role-extra">Dział Produkcji</p>
+      </div>
+
+      <div class="kadra-card fade-in">
+        <p class="kadra-role-main">Kierownik</p>
+        <p class="kadra-name">Adam Stasiuk</p>
+        <p class="kadra-role-extra">Dział Wypalania Kruszyw</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section id="godziny">
-  <div class="fade-in">
-    <p class="section-label">Kiedy jesteśmy</p>
-    <h2 class="section-title">Godziny otwarcia</h2>
-    <div class="divider"></div>
+  <div class="container">
+    <div class="fade-in">
+      <h2 class="section-title">Godziny otwarcia</h2>
+      <div class="divider"></div>
+      <table class="hours-table">
+        <tr><td>Poniedziałek – Sobota</td><td><strong>07:00 – 21:00</strong></td></tr>
+        <tr><td>Niedziela</td><td><strong>11:00 – 16:30</strong></td></tr>
+      </table>
+    </div>
   </div>
-
-  <table class="hours-table fade-in">
-    <tr><td>Poniedziałek</td><td>07:00 – 21:00</td></tr>
-    <tr><td>Wtorek</td><td>07:00 – 21:00</td></tr>
-    <tr><td>Środa</td><td>07:00 – 21:00</td></tr>
-    <tr><td>Czwartek</td><td>07:00 – 21:00</td></tr>
-    <tr><td>Piątek</td><td>07:00 – 21:00</td></tr>
-    <tr><td>Sobota</td><td>07:00 – 21:00</td></tr>
-    <tr><td>Niedziela</td><td>11:00 – 16:30</td></tr>
-  </table>
 </section>
 
-<!-- KONTAKT -->
 <section id="kontakt">
-  <div class="fade-in">
-    <p class="section-label">Skontaktuj się</p>
-    <h2 class="section-title">Kontakt</h2>
-    <div class="divider"></div>
-  </div>
-
-  <div class="kontakt-grid">
-    <div class="kontakt-card fade-in">
-      <div>
-        <h4>Telefon</h4>
-        <a href="tel:+48576233199">576 233 199</a>
-        <p class="sub">Pon–Sob, 07:00–21:00</p>
-      </div>
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Kontakt</p>
+      <h2 class="section-title">Zapraszamy do współpracy</h2>
+      <div class="divider"></div>
     </div>
-    <div class="kontakt-card fade-in">
-      <div>
-        <h4>E-mail</h4>
-        <a href="mailto:KruszywaLubienia@proton.me">KruszywaLubienia@proton.me</a>
-        <p class="sub">Odpowiadamy w ciągu dnia</p>
+    <div class="kontakt-grid">
+      <div class="kontakt-card fade-in">
+        <h4>Zadzwoń</h4>
+        <a href="tel:+48576233199" style="text-decoration:none; color:var(--accent); font-size:1.5rem; font-weight:bold;">576 233 199</a>
       </div>
-    </div>
-    <div class="kontakt-card fade-in">
-      <div>
+      <div class="kontakt-card fade-in">
+        <h4>Napisz e-mail</h4>
+        <p>KruszywaLubienia@proton.me</p>
+      </div>
+      <div class="kontakt-card fade-in">
         <h4>Adres</h4>
-        <p>Lubienia, 27-230</p>
-        <p class="sub">Gmina Brody, pow. starachowicki</p>
+        <p>Lubienia, Starachowicka 56<br>27-230, pow. starachowicki</p>
       </div>
     </div>
-  </div>
 
-  <div class="map-wrap fade-in">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d500!2d21.1792628!3d51.0511807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4718130cf0abc779%3A0x1e2ee50d6168b756!2sKruszywa%20S.A.!5e0!3m2!1spl!2spl!4v1700000000000"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Mapa – Kruszywa S.A. Lubienia">
-    </iframe>
+    <div class="map-wrap fade-in">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10103.4682054611!2d21.1685!3d51.0435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47182f6e9114757b%3A0x6431f4784a36f564!2s27-230%20Lubienia!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" allowfullscreen="" loading="lazy"></iframe>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia, pow. starachowicki · Wszelkie prawa zastrzeżone</p>
+  <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia · Solidne materiały dla Twojej budowy</p>
 </footer>
 
 <script>
-  // Fade-in on scroll
+  const observerOptions = {
+    threshold: 0.15
+  };
+
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.12 });
+  }, observerOptions);
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+  });
 </script>
 
 </body>
