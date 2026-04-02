@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Historia – Kruszywa S.A.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown:   #3b2b1a;
+      --earth:   #6b4c2a;
+      --sand:    #c9a96e;
+      --light:   #f5f0e8;
+      --white:   #ffffff;
+      --gray:    #888;
+      --accent:  #d4891a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--light);
+      color: var(--brown);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 70px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+
+    .nav-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sand);
+      letter-spacing: .05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Oswald', sans-serif;
+      font-size: .95rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #ccc;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--sand); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--brown);
+      padding: 80px 2rem 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(135deg, transparent, transparent 18px, rgba(255,255,255,.02) 18px, rgba(255,255,255,.02) 19px);
+    }
+
+    .page-header .breadcrumb {
+      font-family: 'Oswald', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--sand);
+      opacity: .7;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .page-header .breadcrumb a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--sand);
+      position: relative;
+    }
+
+    .page-header p {
+      margin-top: .8rem;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #bbb;
+      position: relative;
+    }
+
+    /* ── LAYOUT ── */
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 2rem 100px;
+    }
+
+    /* ── LEAD ── */
+    .lead {
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--earth);
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(107,76,42,.2);
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), rgba(212,137,26,.15));
+    }
+
+    .timeline-entry {
+      position: relative;
+      margin-bottom: 3.5rem;
+    }
+
+    .timeline-entry::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      transform: translateX(-5.5px);
+      box-shadow: 0 0 0 4px rgba(212,137,26,.2);
+    }
+
+    .timeline-year {
+      font-family: 'Oswald', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+
+    .timeline-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: .6rem;
+    }
+
+    .timeline-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--earth);
+    }
+
+    /* ── CYTAT / WYRÓŻNIENIE ── */
+    .highlight-box {
+      background: var(--brown);
+      color: var(--white);
+      padding: 3rem 3.5rem;
+      margin: 4rem 0;
+      position: relative;
+    }
+
+    .highlight-box::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem;
+      left: 2rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 8rem;
+      color: var(--accent);
+      opacity: .25;
+      line-height: 1;
+    }
+
+    .highlight-box p {
+      font-size: 1.25rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: #ddd;
+      position: relative;
+    }
+
+    .highlight-box .quote-author {
+      margin-top: 1.2rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--sand);
+    }
+
+    /* ── WARTOŚCI ── */
+    .wartosci {
+      margin-top: 5rem;
+      padding-top: 4rem;
+      border-top: 1px solid rgba(107,76,42,.2);
+    }
+
+    .section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin: 1.2rem 0 2.5rem;
+    }
+
+    .wartosci-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .wartosc-card {
+      background: var(--white);
+      padding: 1.8rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    .wartosc-card h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: .5rem;
+    }
+
+    .wartosc-card p {
+      font-size: .95rem;
+      line-height: 1.65;
+      color: var(--earth);
+    }
+
+    /* ── STOPKA ── */
+    footer { background: var(--brown); color: #888; text-align: center; padding: 3rem 1rem; }
+    footer span { color: var(--sand); font-weight: bold; }
+    .footer-links { margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .footer-links a { color: #888; text-decoration: none; font-size: .9rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--sand); }
+
+    /* ── ANIMACJE ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .page-content { padding: 50px 1.5rem 70px; }
+      .highlight-box { padding: 2rem; }
+      .timeline { padding-left: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">KRUSZYWA S.A.</a>
+  <ul class="nav-links">
+    <li><a href="index.html#oferta">Oferta</a></li>
+    <li><a href="kadra.html">Kadra</a></li>
+    <li><a href="historia.html" class="active">Historia</a></li>
+    <li><a href="index.html#godziny">Godziny</a></li>
+    <li><a href="index.html#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="index.html">Kruszywa S.A.</a> &nbsp;/&nbsp; Historia</p>
+  <h1>Nasza historia</h1>
+  <p>Jak firma z Lubieni stała się lokalnym liderem branży kruszyw</p>
+</div>
+
+<div class="page-content">
+
+  <p class="lead fade-in">
+    Kruszywa S.A. to firma zakorzeniona w ziemi Lubieni — dosłownie i w przenośni. Zaczęło się od prostej potrzeby: dostarczyć lokalnym budowniczym solidny materiał bez konieczności dalekiego transportu. Przez lata skromna działalność urosła do jednego z rozpoznawalnych dostawców kruszyw i opału w powiecie starachowickim.
+  </p>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+
+    <div class="timeline-entry fade-in">
+      <p class="timeline-year">Początki</p>
+      <h3 class="timeline-title">Pierwsze kroki w Lubieni</h3>
+      <p class="timeline-body">
+        Firma powstała z inicjatywy lokalnych przedsiębiorców, którzy dostrzegli rosnące zapotrzebowanie na materiały budowlane w regionie. Pierwsze dostawy żwiru i piasku trafiały głównie do klientów indywidualnych z okolicznych miejscowości. Praca opierała się na zaufaniu, słowie i znajomości terenu.
+      </p>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <p class="timeline-year">Rozwój</p>
+      <h3 class="timeline-title">Rozbudowa bazy i asortymentu</h3>
+      <p class="timeline-body">
+        Z czasem spółka rozszerzyła działalność o własny transport, co pozwoliło na obsługę większych zamówień budowlanych i dotarcie do klientów z dalszych gmin powiatu. Dołączyła sprzedaż węgla i ekogroszku, odpowiadając na potrzeby mieszkańców w sezonach grzewczych.
+      </p>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <p class="timeline-year">Struktura</p>
+      <h3 class="timeline-title">Formalny zarząd i podział na działy</h3>
+      <p class="timeline-body">
+        Dynamiczny rozwój wymusił sformalizowanie struktury. Powołano zarząd z prezesem na czele, a firma podzieliła się na wyspecjalizowane działy: załadunku, produkcji, wypalania kruszyw oraz inwestycji. Każdy dział zyskał własnego kierownika odpowiedzialnego za jakość i terminowość.
+      </p>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <p class="timeline-year">Dziś</p>
+      <h3 class="timeline-title">Kruszywa S.A. — lokalny standard jakości</h3>
+      <p class="timeline-body">
+        Dziś firma obsługuje inwestycje budowlane, klientów indywidualnych i hurtownie z całego regionu. Otwarci siedem dni w tygodniu, z własnym taborem transportowym i stałym zespołem doświadczonych specjalistów — jesteśmy gotowi na każde zamówienie.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="highlight-box fade-in">
+    <p>Zależy nam na tym, żeby każdy klient — czy buduje dom, czy zarządza dużą inwestycją — mógł polegać na nas tak samo: pewna jakość, uczciwa cena, dostawa na czas.</p>
+    <p class="quote-author">— Zarząd Kruszywa S.A.</p>
+  </div>
+
+  <!-- WARTOŚCI -->
+  <div class="wartosci fade-in">
+    <p class="section-label">Co nas wyróżnia</p>
+    <h2 class="section-title">Nasze wartości</h2>
+    <div class="divider"></div>
+
+    <div class="wartosci-grid">
+      <div class="wartosc-card fade-in">
+        <h4>Rzetelność</h4>
+        <p>Dotrzymujemy słowa. Każde zamówienie realizowane jest z należytą starannością i w ustalonym terminie.</p>
+      </div>
+      <div class="wartosc-card fade-in">
+        <h4>Lokalność</h4>
+        <p>Jesteśmy stąd. Rozumiemy specyfikę rynku w Lubieni i powiecie starachowickim lepiej niż ktokolwiek z zewnątrz.</p>
+      </div>
+      <div class="wartosc-card fade-in">
+        <h4>Jakość</h4>
+        <p>Materiały, które sprzedajemy, sami byśmy użyli. Kontrola jakości zaczyna się już przy wydobyciu i trwa do dostawy.</p>
+      </div>
+      <div class="wartosc-card fade-in">
+        <h4>Dostępność</h4>
+        <p>Siedem dni w tygodniu — bo budowa nie zawsze poczeka do poniedziałku.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia · Solidne materiały dla Twojej budowy</p>
+  <div class="footer-links">
+    <a href="index.html">Strona główna</a>
+    <a href="kadra.html">Kadra</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
