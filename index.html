@@ -227,26 +227,22 @@
       opacity: .8;
     }
 
-    /* ── KADRA ── */
-    #kadra { background: var(--white); max-width: 100%; }
-    .kadra-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
+    /* ── ZESPÓŁ CTA ── */
+    #zespol-cta { background: var(--light); max-width: 100%; }
+    .zespol-cta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 90px 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
-
-    .kadra-card {
-      background: var(--light);
-      padding: 1.8rem;
-      border-left: 5px solid var(--accent);
-      transition: 0.3s;
-    }
-
-    .kadra-card-zarząd { border-left-color: var(--earth); }
+    .zespol-cta-inner .text { flex: 1; min-width: 260px; }
 
     /* ── GODZINY ── */
-    #godziny { background: var(--light); max-width: 100%; }
+    #godziny { background: var(--white); max-width: 100%; }
     .hours-table {
       width: 100%;
       max-width: 600px;
@@ -272,8 +268,11 @@
     /* ── STOPKA ── */
     footer { background: var(--brown); color: #888; text-align: center; padding: 3rem 1rem; }
     footer span { color: var(--sand); font-weight: bold; }
+    .footer-links { margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .footer-links a { color: #888; text-decoration: none; font-size: .9rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--sand); }
 
-    /* ── ANIMACJE (KLUCZ DO NAPRAWY) ── */
+    /* ── ANIMACJE ── */
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
@@ -285,18 +284,20 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; } /* Uproszczenie dla mobile */
+      .nav-links { display: none; }
       section { padding: 60px 1.5rem; }
+      .zespol-cta-inner { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="#">KRUSZYWA S.A.</a>
+  <a class="nav-logo" href="index.html">KRUSZYWA S.A.</a>
   <ul class="nav-links">
     <li><a href="#oferta">Oferta</a></li>
-    <li><a href="#kadra">Kadra</a></li>
+    <li><a href="kadra.html">Kadra</a></li>
+    <li><a href="historia.html">Historia</a></li>
     <li><a href="#godziny">Godziny</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
@@ -312,8 +313,8 @@
   </div>
 </section>
 
-<div class="container">
-  <section id="oferta">
+<div style="background: var(--white);">
+  <section id="oferta" style="max-width:1200px; margin:0 auto;">
     <div class="fade-in">
       <p class="section-label">Co oferujemy</p>
       <h2 class="section-title">Nasza oferta</h2>
@@ -337,8 +338,8 @@
   </section>
 </div>
 
-<section id="dlaczego">
-  <div class="container">
+<section id="dlaczego" style="padding:0;">
+  <div class="container" style="padding: 90px 2rem;">
     <div class="fade-in">
       <p class="section-label">Atuty</p>
       <h2 class="section-title">Dlaczego my?</h2>
@@ -364,78 +365,20 @@
   </div>
 </section>
 
-<section id="kadra">
-  <div class="container">
-    <div class="fade-in">
+<!-- ZESPÓŁ CTA -->
+<div style="background: var(--light);">
+  <div class="zespol-cta-inner fade-in">
+    <div class="text">
       <p class="section-label">Zespół</p>
-      <h2 class="section-title">Kadra Zarządzająca</h2>
-      <div class="divider"></div>
-<div class="kadra-grid">
-
-      <div class="kadra-card kadra-card-zarząd fade-in">
-        <p class="kadra-role-main">Prezes Zarządu</p>
-        <p class="kadra-name">Filip Kozieł</p>
-      </div>
-
-      <div class="kadra-card kadra-card-zarząd fade-in">
-        <p class="kadra-role-main">Wiceprezes</p>
-        <p class="kadra-name">Bartosz Szymon Marczak</p>
-        <p class="kadra-role-extra">Główny Sekretarz</p>
-      </div>
-
-      <div class="kadra-card kadra-card-zarząd fade-in">
-        <p class="kadra-role-main">Wiceprezes</p>
-        <p class="kadra-name">Makary Majchrzyk</p>
-        <p class="kadra-role-extra">Kierownik Działu IT</p>
-      </div>
-  
-      <div class="kadra-card kadra-card-zarząd fade-in">
-        <p class="kadra-role-main">Członek Zarządu</p>
-        <p class="kadra-name">Filip Mnich</p>
-      </div>
-
-      <div class="kadra-card fade-in">
-        <p class="kadra-role-main">Kierownik</p>
-        <p class="kadra-name">Marek Adach</p>
-        <p class="kadra-role-extra">Dział Załadunku</p>
-      </div>
-
-      <div class="kadra-card fade-in">
-        <p class="kadra-role-main">Kierownik</p>
-        <p class="kadra-name">Gabriel Grędziak</p>
-        <p class="kadra-role-extra">Dział Inwestycyjny</p>
-      </div>
-  
-        <div class="kadra-card fade-in">
-        <p class="kadra-role-main">Kierownik</p>
-        <p class="kadra-name">Wiktor Piotrowicz</p>
-        <p class="kadra-role-extra">Zastępca Kierownika Działu IT</p>
-      </div>
-
-      <div class="kadra-card fade-in">
-        <p class="kadra-role-main">Kierownik</p>
-        <p class="kadra-name">Natan Kopacz</p>
-        <p class="kadra-role-extra">Dział Produkcji</p>
-      </div>
-
-      <div class="kadra-card fade-in">
-        <p class="kadra-role-main">Zastępca Kierownika</p>
-        <p class="kadra-name">Igor Łojek</p>
-        <p class="kadra-role-extra">Dział Produkcji</p>
-      </div>
-
-      <div class="kadra-card fade-in">
-        <p class="kadra-role-main">Kierownik</p>
-        <p class="kadra-name">Adam Stasiuk</p>
-        <p class="kadra-role-extra">Dział Wypalania Kruszyw</p>
-      </div>
-
+      <h2 class="section-title" style="margin-bottom:.5rem;">Poznaj naszą kadrę</h2>
+      <p style="color: var(--earth); max-width:500px;">Doświadczony zarząd i wykwalifikowani kierownicy działów – ludzie, którzy stoją za codzienną pracą Kruszywa S.A.</p>
     </div>
+    <a href="kadra.html" class="btn btn-primary" style="flex-shrink:0;">Zobacz kadrę →</a>
   </div>
-</section>
+</div>
 
-<section id="godziny">
-  <div class="container">
+<div style="background: var(--white);">
+  <section id="godziny" style="max-width:1200px; margin:0 auto;">
     <div class="fade-in">
       <h2 class="section-title">Godziny otwarcia</h2>
       <div class="divider"></div>
@@ -444,11 +387,11 @@
         <tr><td>Niedziela</td><td><strong>11:00 – 16:30</strong></td></tr>
       </table>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<section id="kontakt">
-  <div class="container">
+<div style="background: var(--light);">
+  <section id="kontakt" style="max-width:1200px; margin:0 auto;">
     <div class="fade-in">
       <p class="section-label">Kontakt</p>
       <h2 class="section-title">Zapraszamy do współpracy</h2>
@@ -472,29 +415,26 @@
     <div class="map-wrap fade-in">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10103.4682054611!2d21.1685!3d51.0435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47182f6e9114757b%3A0x6431f4784a36f564!2s27-230%20Lubienia!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" allowfullscreen="" loading="lazy"></iframe>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <footer>
   <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia · Solidne materiały dla Twojej budowy</p>
+  <div class="footer-links">
+    <a href="kadra.html">Kadra</a>
+    <a href="historia.html">Historia</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
 </footer>
 
 <script>
-  const observerOptions = {
-    threshold: 0.15
-  };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, observerOptions);
+  }, { threshold: 0.15 });
 
-  document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
-  });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
