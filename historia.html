@@ -5,316 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Historia – Kruszywa S.A.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --brown:   #3b2b1a;
-      --earth:   #6b4c2a;
-      --sand:    #c9a96e;
-      --light:   #f5f0e8;
-      --white:   #ffffff;
-      --gray:    #888;
-      --accent:  #d4891a;
+      --black:  #0a0a0a;
+      --dark:   #111111;
+      --panel:  #161616;
+      --border: #242424;
+      --gold:   #c9a050;
+      --gold2:  #e8c07a;
+      --white:  #f0ece4;
+      --muted:  #606060;
+      --text:   #c0bcb4;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; }
 
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      background: var(--light);
-      color: var(--brown);
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--brown);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 70px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 68px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      background: rgba(10,10,10,.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .12em; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: .76rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
 
-    .nav-logo {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--sand);
-      letter-spacing: .05em;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Oswald', sans-serif;
-      font-size: .95rem;
-      font-weight: 400;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #ccc;
-      text-decoration: none;
-      transition: color .2s;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: var(--sand); }
-
-    /* ── PAGE HEADER ── */
+    /* PAGE HEADER */
     .page-header {
-      background: var(--brown);
-      padding: 80px 2rem 70px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      padding: 140px 2rem 80px; text-align: center; position: relative; overflow: hidden; border-bottom: 1px solid var(--border);
     }
-
     .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(135deg, transparent, transparent 18px, rgba(255,255,255,.02) 18px, rgba(255,255,255,.02) 19px);
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,160,80,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,160,80,.03) 1px, transparent 1px);
+      background-size: 64px 64px;
     }
-
-    .page-header .breadcrumb {
-      font-family: 'Oswald', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--sand);
-      opacity: .7;
-      margin-bottom: 1rem;
-      position: relative;
+    .page-header::after {
+      content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,160,80,.06) 0%, transparent 65%);
+      pointer-events: none;
     }
+    .breadcrumb { font-size: .68rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; position: relative; }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: .06em; color: var(--white); position: relative; }
+    .page-header p { margin-top: .8rem; font-size: .95rem; font-weight: 300; color: var(--muted); position: relative; }
 
-    .page-header .breadcrumb a {
-      color: inherit;
-      text-decoration: none;
-    }
+    /* LAYOUT */
+    .page-content { max-width: 860px; margin: 0 auto; padding: 90px 2rem 120px; }
 
-    .page-header h1 {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 700;
-      color: var(--sand);
-      position: relative;
-    }
+    .section-eyebrow { font-size: .7rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; display: flex; align-items: center; gap: .8rem; }
+    .section-eyebrow::after { content: ''; display: block; width: 50px; height: 1px; background: var(--gold); opacity: .4; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .05em; color: var(--white); line-height: 1; }
 
-    .page-header p {
-      margin-top: .8rem;
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: #bbb;
-      position: relative;
-    }
-
-    /* ── LAYOUT ── */
-    .page-content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 80px 2rem 100px;
-    }
-
-    /* ── LEAD ── */
+    /* LEAD */
     .lead {
-      font-size: 1.2rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--earth);
-      margin-bottom: 4rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(107,76,42,.2);
+      font-size: 1.1rem; font-weight: 300; line-height: 1.85; color: var(--text);
+      margin-bottom: 5rem; padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    /* ── TIMELINE ── */
-    .timeline {
-      position: relative;
-      padding-left: 3rem;
-    }
-
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 3rem; }
     .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      bottom: 0;
-      width: 3px;
-      background: linear-gradient(to bottom, var(--accent), rgba(212,137,26,.15));
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, var(--gold), rgba(201,160,80,.08));
     }
 
-    .timeline-entry {
-      position: relative;
-      margin-bottom: 3.5rem;
-    }
+    .timeline-entry { position: relative; margin-bottom: 4rem; }
+    .timeline-entry:last-child { margin-bottom: 0; }
 
     .timeline-entry::before {
-      content: '';
-      position: absolute;
-      left: -3rem;
-      top: 8px;
-      width: 14px;
-      height: 14px;
-      background: var(--accent);
-      border-radius: 50%;
-      transform: translateX(-5.5px);
-      box-shadow: 0 0 0 4px rgba(212,137,26,.2);
+      content: ''; position: absolute; left: -3rem; top: 6px;
+      width: 10px; height: 10px;
+      background: var(--gold); border-radius: 50%;
+      transform: translateX(-4.5px);
+      box-shadow: 0 0 0 4px rgba(201,160,80,.15), 0 0 12px rgba(201,160,80,.2);
     }
 
     .timeline-year {
-      font-family: 'Oswald', sans-serif;
-      font-size: .8rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .4rem;
+      font-size: .68rem; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem;
     }
 
     .timeline-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--brown);
-      margin-bottom: .6rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .05em; color: var(--white); margin-bottom: .8rem;
     }
 
-    .timeline-body {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--earth);
-    }
+    .timeline-body { font-size: .95rem; line-height: 1.82; color: var(--muted); }
 
-    /* ── CYTAT / WYRÓŻNIENIE ── */
-    .highlight-box {
-      background: var(--brown);
-      color: var(--white);
-      padding: 3rem 3.5rem;
-      margin: 4rem 0;
-      position: relative;
+    /* CYTAT */
+    .quote-block {
+      border: 1px solid var(--border); background: var(--panel);
+      padding: 3.5rem 4rem; margin: 5rem 0; position: relative; overflow: hidden;
     }
-
-    .highlight-box::before {
-      content: '"';
-      position: absolute;
-      top: -0.5rem;
-      left: 2rem;
-      font-family: 'Oswald', sans-serif;
-      font-size: 8rem;
-      color: var(--accent);
-      opacity: .25;
-      line-height: 1;
+    .quote-block::before {
+      content: '"'; position: absolute; top: -1.5rem; left: 2.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 10rem; color: var(--gold); opacity: .08; line-height: 1;
+      pointer-events: none;
     }
-
-    .highlight-box p {
-      font-size: 1.25rem;
-      font-weight: 300;
-      line-height: 1.7;
-      color: #ddd;
-      position: relative;
+    .quote-block::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); opacity: .6;
     }
+    .quote-block p { font-size: 1.15rem; font-weight: 300; line-height: 1.8; color: var(--text); position: relative; }
+    .quote-author { margin-top: 1.5rem; font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
 
-    .highlight-box .quote-author {
-      margin-top: 1.2rem;
-      font-family: 'Oswald', sans-serif;
-      font-size: .85rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--sand);
-    }
+    /* WARTOŚCI */
+    .wartosci { margin-top: 5rem; padding-top: 5rem; border-top: 1px solid var(--border); }
+    .wartosci-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
+    .wartosc-card { background: var(--panel); padding: 2.5rem; position: relative; overflow: hidden; transition: background .3s; }
+    .wartosc-card:hover { background: #1c1c1c; }
+    .wartosc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+    .wartosc-card:hover::before { transform: scaleX(1); }
+    .wartosc-card h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .06em; color: var(--white); margin-bottom: .7rem; }
+    .wartosc-card p { font-size: .88rem; line-height: 1.72; color: var(--muted); }
 
-    /* ── WARTOŚCI ── */
-    .wartosci {
-      margin-top: 5rem;
-      padding-top: 4rem;
-      border-top: 1px solid rgba(107,76,42,.2);
-    }
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: .76rem; letter-spacing: .1em; color: var(--muted); }
+    .footer-copy span { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
 
-    .section-label {
-      font-family: 'Oswald', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .6rem;
-    }
-
-    .section-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 600;
-      color: var(--brown);
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin: 1.2rem 0 2.5rem;
-    }
-
-    .wartosci-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .wartosc-card {
-      background: var(--white);
-      padding: 1.8rem;
-      border-left: 4px solid var(--accent);
-    }
-
-    .wartosc-card h4 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--brown);
-      margin-bottom: .5rem;
-    }
-
-    .wartosc-card p {
-      font-size: .95rem;
-      line-height: 1.65;
-      color: var(--earth);
-    }
-
-    /* ── STOPKA ── */
-    footer { background: var(--brown); color: #888; text-align: center; padding: 3rem 1rem; }
-    footer span { color: var(--sand); font-weight: bold; }
-    .footer-links { margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .footer-links a { color: #888; text-decoration: none; font-size: .9rem; transition: color .2s; }
-    .footer-links a:hover { color: var(--sand); }
-
-    /* ── ANIMACJE ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
+    /* FADE */
+    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
-      .page-content { padding: 50px 1.5rem 70px; }
-      .highlight-box { padding: 2rem; }
-      .timeline { padding-left: 2rem; }
+      .page-content { padding: 60px 1.5rem 80px; }
+      .quote-block { padding: 2.5rem 2rem; }
+      .wartosci-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">KRUSZYWA S.A.</a>
+  <a class="nav-logo" href="index.html">Kruszywa S.A.</a>
   <ul class="nav-links">
     <li><a href="index.html#oferta">Oferta</a></li>
     <li><a href="kadra.html">Kadra</a></li>
@@ -336,68 +170,56 @@
     Kruszywa S.A. to firma zakorzeniona w ziemi Lubieni — dosłownie i w przenośni. Zaczęło się od prostej potrzeby: dostarczyć lokalnym budowniczym solidny materiał bez konieczności dalekiego transportu. Przez lata skromna działalność urosła do jednego z rozpoznawalnych dostawców kruszyw i opału w powiecie starachowickim.
   </p>
 
-  <!-- TIMELINE -->
   <div class="timeline">
 
     <div class="timeline-entry fade-in">
       <p class="timeline-year">Początki</p>
       <h3 class="timeline-title">Pierwsze kroki w Lubieni</h3>
-      <p class="timeline-body">
-        Firma powstała z inicjatywy lokalnych przedsiębiorców, którzy dostrzegli rosnące zapotrzebowanie na materiały budowlane w regionie. Pierwsze dostawy żwiru i piasku trafiały głównie do klientów indywidualnych z okolicznych miejscowości. Praca opierała się na zaufaniu, słowie i znajomości terenu.
-      </p>
+      <p class="timeline-body">Firma powstała z inicjatywy lokalnych przedsiębiorców, którzy dostrzegli rosnące zapotrzebowanie na materiały budowlane w regionie. Pierwsze dostawy żwiru i piasku trafiały głównie do klientów indywidualnych z okolicznych miejscowości. Praca opierała się na zaufaniu, słowie i znajomości terenu.</p>
     </div>
 
     <div class="timeline-entry fade-in">
       <p class="timeline-year">Rozwój</p>
       <h3 class="timeline-title">Rozbudowa bazy i asortymentu</h3>
-      <p class="timeline-body">
-        Z czasem spółka rozszerzyła działalność o własny transport, co pozwoliło na obsługę większych zamówień budowlanych i dotarcie do klientów z dalszych gmin powiatu. Dołączyła sprzedaż węgla i ekogroszku, odpowiadając na potrzeby mieszkańców w sezonach grzewczych.
-      </p>
+      <p class="timeline-body">Z czasem spółka rozszerzyła działalność o własny transport, co pozwoliło na obsługę większych zamówień budowlanych i dotarcie do klientów z dalszych gmin powiatu. Dołączyła sprzedaż węgla i ekogroszku, odpowiadając na potrzeby mieszkańców w sezonach grzewczych.</p>
     </div>
 
     <div class="timeline-entry fade-in">
       <p class="timeline-year">Struktura</p>
       <h3 class="timeline-title">Formalny zarząd i podział na działy</h3>
-      <p class="timeline-body">
-        Dynamiczny rozwój wymusił sformalizowanie struktury. Powołano zarząd z prezesem na czele, a firma podzieliła się na wyspecjalizowane działy: załadunku, produkcji, wypalania kruszyw oraz inwestycji. Każdy dział zyskał własnego kierownika odpowiedzialnego za jakość i terminowość.
-      </p>
+      <p class="timeline-body">Dynamiczny rozwój wymusił sformalizowanie struktury. Powołano zarząd z prezesem na czele, a firma podzieliła się na wyspecjalizowane działy: załadunku, produkcji, wypalania kruszyw oraz inwestycji. Każdy dział zyskał własnego kierownika odpowiedzialnego za jakość i terminowość.</p>
     </div>
 
     <div class="timeline-entry fade-in">
       <p class="timeline-year">Dziś</p>
-      <h3 class="timeline-title">Kruszywa S.A. — lokalny standard jakości</h3>
-      <p class="timeline-body">
-        Dziś firma obsługuje inwestycje budowlane, klientów indywidualnych i hurtownie z całego regionu. Otwarci siedem dni w tygodniu, z własnym taborem transportowym i stałym zespołem doświadczonych specjalistów — jesteśmy gotowi na każde zamówienie.
-      </p>
+      <h3 class="timeline-title">Kruszywa S.A. — lokalny standard</h3>
+      <p class="timeline-body">Dziś firma obsługuje inwestycje budowlane, klientów indywidualnych i hurtownie z całego regionu. Otwarci siedem dni w tygodniu, z własnym taborem transportowym i stałym zespołem doświadczonych specjalistów — gotowi na każde zamówienie.</p>
     </div>
 
   </div>
 
-  <div class="highlight-box fade-in">
+  <div class="quote-block fade-in">
     <p>Zależy nam na tym, żeby każdy klient — czy buduje dom, czy zarządza dużą inwestycją — mógł polegać na nas tak samo: pewna jakość, uczciwa cena, dostawa na czas.</p>
     <p class="quote-author">— Zarząd Kruszywa S.A.</p>
   </div>
 
-  <!-- WARTOŚCI -->
   <div class="wartosci fade-in">
-    <p class="section-label">Co nas wyróżnia</p>
+    <p class="section-eyebrow">Co nas wyróżnia</p>
     <h2 class="section-title">Nasze wartości</h2>
-    <div class="divider"></div>
-
     <div class="wartosci-grid">
-      <div class="wartosc-card fade-in">
+      <div class="wartosc-card">
         <h4>Rzetelność</h4>
         <p>Dotrzymujemy słowa. Każde zamówienie realizowane jest z należytą starannością i w ustalonym terminie.</p>
       </div>
-      <div class="wartosc-card fade-in">
+      <div class="wartosc-card">
         <h4>Lokalność</h4>
         <p>Jesteśmy stąd. Rozumiemy specyfikę rynku w Lubieni i powiecie starachowickim lepiej niż ktokolwiek z zewnątrz.</p>
       </div>
-      <div class="wartosc-card fade-in">
+      <div class="wartosc-card">
         <h4>Jakość</h4>
-        <p>Materiały, które sprzedajemy, sami byśmy użyli. Kontrola jakości zaczyna się już przy wydobyciu i trwa do dostawy.</p>
+        <p>Materiały, które sprzedajemy, sami byśmy użyli. Kontrola jakości zaczyna się przy wydobyciu i trwa do dostawy.</p>
       </div>
-      <div class="wartosc-card fade-in">
+      <div class="wartosc-card">
         <h4>Dostępność</h4>
         <p>Siedem dni w tygodniu — bo budowa nie zawsze poczeka do poniedziałku.</p>
       </div>
@@ -407,23 +229,17 @@
 </div>
 
 <footer>
-  <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia · Solidne materiały dla Twojej budowy</p>
+  <p class="footer-copy">© 2026 <span>Kruszywa S.A.</span> · Lubienia</p>
   <div class="footer-links">
-    <a href="index.html">Strona główna</a>
+    <a href="index.html">Główna</a>
     <a href="kadra.html">Kadra</a>
     <a href="index.html#kontakt">Kontakt</a>
   </div>
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
