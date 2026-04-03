@@ -5,295 +5,155 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Kruszywa S.A. – Lubienia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --brown:   #3b2b1a;
-      --earth:   #6b4c2a;
-      --sand:    #c9a96e;
-      --light:   #f5f0e8;
-      --white:   #ffffff;
-      --gray:    #888;
-      --accent:  #d4891a;
+      --black:  #0a0a0a;
+      --dark:   #111111;
+      --panel:  #161616;
+      --border: #242424;
+      --gold:   #c9a050;
+      --gold2:  #e8c07a;
+      --white:  #f0ece4;
+      --muted:  #606060;
+      --text:   #c0bcb4;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; }
 
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      background: var(--light);
-      color: var(--brown);
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--brown);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 70px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 68px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      background: rgba(10,10,10,.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .12em; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: .76rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
 
-    .nav-logo {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--sand);
-      letter-spacing: .05em;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Oswald', sans-serif;
-      font-size: .95rem;
-      font-weight: 400;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #ccc;
-      text-decoration: none;
-      transition: color .2s;
-    }
-
-    .nav-links a:hover { color: var(--sand); }
-
-    /* ── HERO ── */
+    /* HERO */
     .hero {
-      position: relative;
-      background: var(--brown);
-      color: var(--white);
-      padding: 120px 2rem 100px;
-      overflow: hidden;
-      text-align: center;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 2rem 80px; position: relative; overflow: hidden;
     }
-
     .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(135deg, transparent, transparent 18px, rgba(255,255,255,.02) 18px, rgba(255,255,255,.02) 19px);
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,160,80,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(201,160,80,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
     }
-
-    .hero-badge {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--white);
-      font-family: 'Oswald', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      padding: .3rem .9rem;
-      border-radius: 2px;
-      margin-bottom: 1.4rem;
-      position: relative;
+    .hero::after {
+      content: ''; position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(201,160,80,.07) 0%, transparent 65%);
+      pointer-events: none;
     }
-
-    .hero h1 {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 700;
-      letter-spacing: .04em;
-      line-height: 1.1;
-      color: var(--sand);
-      position: relative;
+    .hero-eyebrow {
+      font-size: .7rem; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 2.2rem; position: relative; display: flex; align-items: center; gap: .9rem;
     }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); opacity: .45; }
+    .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 18vw, 13rem); letter-spacing: .04em; line-height: .9; color: var(--white); position: relative; }
+    .hero h1 em { font-style: normal; color: var(--gold); display: block; }
+    .hero-sub { margin-top: 2rem; font-size: 1rem; font-weight: 300; color: var(--muted); max-width: 500px; line-height: 1.75; position: relative; }
+    .hero-cta { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; position: relative; }
 
-    .hero h1 span { color: var(--white); }
+    .btn { font-size: .76rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; padding: .95rem 2.5rem; text-decoration: none; transition: all .3s; cursor: pointer; border: none; }
+    .btn-gold { background: var(--gold); color: var(--black); }
+    .btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--gold); border: 1px solid rgba(201,160,80,.35); }
+    .btn-ghost:hover { border-color: var(--gold); background: rgba(201,160,80,.06); }
 
-    .hero p {
-      margin-top: 1.2rem;
-      font-size: 1.2rem;
-      font-weight: 300;
-      color: #ccc;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-    }
+    /* STATS */
+    .stats-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--panel); display: flex; justify-content: center; flex-wrap: wrap; }
+    .stat { padding: 2.5rem 4rem; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; letter-spacing: .06em; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
 
-    .hero-cta {
-      margin-top: 2.2rem;
-      display: inline-flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      position: relative;
-    }
+    /* SECTION HEADER */
+    .section-eyebrow { font-size: .7rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; display: flex; align-items: center; gap: .8rem; }
+    .section-eyebrow::after { content: ''; display: block; width: 50px; height: 1px; background: var(--gold); opacity: .4; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: .04em; color: var(--white); line-height: 1; }
 
-    .btn {
-      font-family: 'Oswald', sans-serif;
-      font-size: .95rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: .9rem 2.2rem;
-      border-radius: 3px;
-      text-decoration: none;
-      transition: all .3s;
-      cursor: pointer;
-      border: none;
-    }
+    /* OFERTA */
+    .oferta-wrap { max-width: 1200px; margin: 0 auto; padding: 110px 2rem; }
+    .oferta-grid { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--border); margin-top: 4rem; }
+    .oferta-card { padding: 3rem 2.5rem; border-right: 1px solid var(--border); position: relative; overflow: hidden; transition: background .3s; }
+    .oferta-card:last-child { border-right: none; }
+    .oferta-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+    .oferta-card:hover { background: rgba(201,160,80,.03); }
+    .oferta-card:hover::before { transform: scaleX(1); }
+    .oferta-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--border); line-height: 1; margin-bottom: 1.5rem; }
+    .oferta-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .06em; color: var(--white); margin-bottom: .7rem; }
+    .oferta-card p { font-size: .9rem; line-height: 1.75; color: var(--muted); }
 
-    .btn-primary { background: var(--accent); color: var(--white); }
-    .btn-primary:hover { background: #b8740f; transform: translateY(-2px); }
-    .btn-outline { background: transparent; color: var(--sand); border: 2px solid var(--sand); }
-    .btn-outline:hover { background: var(--sand); color: var(--brown); }
+    /* DLACZEGO */
+    .dlaczego-section { background: var(--panel); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .dlaczego-inner { max-width: 1200px; margin: 0 auto; padding: 110px 2rem; display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+    .feature { padding: 2.5rem 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 3rem 1fr; gap: 1.5rem; align-items: start; }
+    .feature:first-child { padding-top: 0; }
+    .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: .12em; color: var(--gold); padding-top: .2rem; }
+    .feature h4 { font-size: .8rem; font-weight: 500; letter-spacing: .08em; color: var(--white); margin-bottom: .5rem; text-transform: uppercase; }
+    .feature p { font-size: .88rem; line-height: 1.72; color: var(--muted); }
 
-    /* ── SECTIONS ── */
-    section { padding: 90px 2rem; max-width: 1200px; margin: 0 auto; }
+    /* ZESPÓŁ CTA */
+    .zespol-cta { max-width: 1200px; margin: 0 auto; padding: 110px 2rem; display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
 
-    .section-label {
-      font-family: 'Oswald', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .6rem;
-    }
+    /* GODZINY */
+    .godziny-section { background: var(--panel); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .godziny-inner { max-width: 1200px; margin: 0 auto; padding: 110px 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .hours-rows { margin-top: 2.5rem; }
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 1.3rem 0; border-bottom: 1px solid var(--border); }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .hours-time { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .08em; color: var(--gold); }
 
-    .section-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 600;
-      color: var(--brown);
-      margin-bottom: 1rem;
-    }
+    /* KONTAKT */
+    .kontakt-wrap { max-width: 1200px; margin: 0 auto; padding: 110px 2rem; }
+    .kontakt-grid { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--border); margin-top: 4rem; }
+    .kontakt-card { padding: 3rem 2.5rem; border-right: 1px solid var(--border); }
+    .kontakt-card:last-child { border-right: none; }
+    .kontakt-label { font-size: .7rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: .8rem; }
+    .kontakt-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .04em; color: var(--gold); text-decoration: none; line-height: 1.3; display: block; transition: color .2s; }
+    .kontakt-value:hover { color: var(--gold2); }
+    .kontakt-plain { font-size: .95rem; color: var(--text); line-height: 1.7; }
+    .map-wrap { margin-top: 3rem; height: 400px; border: 1px solid var(--border); overflow: hidden; }
+    .map-wrap iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(1) contrast(.85); }
 
-    .divider {
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin: 1.5rem 0 2.5rem;
-    }
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: .76rem; letter-spacing: .1em; color: var(--muted); }
+    .footer-copy span { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
 
-    /* ── OFERTA ── */
-    #oferta { background: var(--white); max-width: 100%; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    /* FADE */
+    .fade-in { opacity: 0; transform: translateY(26px); transition: opacity .75s ease, transform .75s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    .oferta-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin-top: 2.5rem;
-    }
-
-    .oferta-card {
-      background: var(--light);
-      border-top: 5px solid var(--accent);
-      padding: 2.5rem 2rem;
-      transition: all .3s ease;
-    }
-
-    .oferta-card:hover {
-      box-shadow: 0 15px 35px rgba(59,43,26,.15);
-      transform: translateY(-5px);
-    }
-
-    /* ── DLACZEGO MY ── */
-    #dlaczego { background: var(--brown); color: var(--white); max-width: 100%; }
-    #dlaczego .section-title { color: var(--sand); }
-    #dlaczego .section-sub { color: #ccc; }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .feature {
-      padding: 2rem;
-      border: 1px solid rgba(201,169,110,.2);
-      border-radius: 4px;
-    }
-
-    .feature-num {
-      font-family: 'Oswald', sans-serif;
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--accent);
-      opacity: .8;
-    }
-
-    /* ── ZESPÓŁ CTA ── */
-    #zespol-cta { background: var(--light); max-width: 100%; }
-    .zespol-cta-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 90px 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .zespol-cta-inner .text { flex: 1; min-width: 260px; }
-
-    /* ── GODZINY ── */
-    #godziny { background: var(--white); max-width: 100%; }
-    .hours-table {
-      width: 100%;
-      max-width: 600px;
-      border-collapse: collapse;
-      background: white;
-      padding: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
-    .hours-table td { padding: 1rem; border-bottom: 1px solid #eee; }
-
-    /* ── KONTAKT ── */
-    #kontakt { background: var(--light); max-width: 100%; }
-    .kontakt-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    .kontakt-card { background: white; padding: 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
-
-    .map-wrap { margin-top: 3rem; height: 450px; border: 2px solid #ddd; }
-    .map-wrap iframe { width: 100%; height: 100%; border: 0; }
-
-    /* ── STOPKA ── */
-    footer { background: var(--brown); color: #888; text-align: center; padding: 3rem 1rem; }
-    footer span { color: var(--sand); font-weight: bold; }
-    .footer-links { margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .footer-links a { color: #888; text-decoration: none; font-size: .9rem; transition: color .2s; }
-    .footer-links a:hover { color: var(--sand); }
-
-    /* ── ANIMACJE ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
-      section { padding: 60px 1.5rem; }
-      .zespol-cta-inner { flex-direction: column; }
+      .dlaczego-inner, .godziny-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .oferta-grid { grid-template-columns: 1fr; }
+      .oferta-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .kontakt-grid { grid-template-columns: 1fr; }
+      .kontakt-card { border-right: none; border-bottom: 1px solid var(--border); }
+      footer { flex-direction: column; text-align: center; }
+      .stat { padding: 2rem; }
+      .zespol-cta { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">KRUSZYWA S.A.</a>
+  <a class="nav-logo" href="index.html">Kruszywa S.A.</a>
   <ul class="nav-links">
     <li><a href="#oferta">Oferta</a></li>
     <li><a href="kadra.html">Kadra</a></li>
@@ -304,122 +164,126 @@
 </nav>
 
 <section class="hero">
-  <div class="hero-badge">Lubienia · Powiat Starachowicki</div>
-  <h1>Kruszywa<br /><span>S.A.</span></h1>
-  <p>Najwyższej jakości żwir, piasek i węgiel. Obsługujemy inwestycje budowlane oraz klientów indywidualnych w regionie.</p>
+  <p class="hero-eyebrow">Lubienia · Powiat Starachowicki</p>
+  <h1>Kruszywa<em>S.A.</em></h1>
+  <p class="hero-sub">Najwyższej jakości żwir, piasek i węgiel. Obsługujemy inwestycje budowlane oraz klientów indywidualnych w regionie świętokrzyskim.</p>
   <div class="hero-cta">
-    <a href="#oferta" class="btn btn-primary">Zobacz ofertę</a>
-    <a href="#kontakt" class="btn btn-outline">Kontakt</a>
+    <a href="#oferta" class="btn btn-gold">Zobacz ofertę</a>
+    <a href="#kontakt" class="btn btn-ghost">Kontakt</a>
   </div>
 </section>
 
-<div style="background: var(--white);">
-  <section id="oferta" style="max-width:1200px; margin:0 auto;">
+<div class="stats-bar">
+  <div class="stat fade-in"><div class="stat-num">7</div><div class="stat-label">Dni w tygodniu</div></div>
+  <div class="stat fade-in"><div class="stat-num">3+</div><div class="stat-label">Produkty</div></div>
+  <div class="stat fade-in"><div class="stat-num">Lubienia</div><div class="stat-label">Pow. Starachowicki</div></div>
+</div>
+
+<section id="oferta">
+  <div class="oferta-wrap">
     <div class="fade-in">
-      <p class="section-label">Co oferujemy</p>
+      <p class="section-eyebrow">Co oferujemy</p>
       <h2 class="section-title">Nasza oferta</h2>
-      <div class="divider"></div>
     </div>
-
-    <div class="oferta-grid">
-      <div class="oferta-card fade-in">
+    <div class="oferta-grid fade-in">
+      <div class="oferta-card">
+        <div class="oferta-num">01</div>
         <h3>Żwir</h3>
-        <p>Naturalny, płukany, o różnych frakcjach. Doskonały do betonów i drenaży.</p>
+        <p>Naturalny, płukany, o różnych frakcjach. Doskonały do betonów konstrukcyjnych i drenaży.</p>
       </div>
-      <div class="oferta-card fade-in">
+      <div class="oferta-card">
+        <div class="oferta-num">02</div>
         <h3>Piasek</h3>
-        <p>Piasek kopalniany i płukany. Idealny do murowania, tynkowania i podsypek.</p>
+        <p>Piasek kopalniany i płukany. Idealny do murowania, tynkowania i podsypek fundamentowych.</p>
       </div>
-      <div class="oferta-card fade-in">
-        <h3>Węgiel i Ekogroszek</h3>
-        <p>Wysokokaloryczny opał na sezon grzewczy. Sprzedaż luzem i w workach.</p>
-      </div>
-    </div>
-  </section>
-</div>
-
-<section id="dlaczego" style="padding:0;">
-  <div class="container" style="padding: 90px 2rem;">
-    <div class="fade-in">
-      <p class="section-label">Atuty</p>
-      <h2 class="section-title">Dlaczego my?</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="features-grid">
-      <div class="feature fade-in">
-        <div class="feature-num">01</div>
-        <h4>Dostępność 7 dni w tygodniu</h4>
-        <p>Pracujemy od rana do wieczora, również w niedziele handlowe.</p>
-      </div>
-      <div class="feature fade-in">
-        <div class="feature-num">02</div>
-        <h4>Własny transport</h4>
-        <p>Dostarczamy zamówiony towar szybko i pod wskazany adres.</p>
-      </div>
-      <div class="feature fade-in">
-        <div class="feature-num">03</div>
-        <h4>Lokalna jakość</h4>
-        <p>Znamy potrzeby lokalnego rynku budowlanego w Lubieni i okolicach.</p>
+      <div class="oferta-card">
+        <div class="oferta-num">03</div>
+        <h3>Węgiel & Ekogroszek</h3>
+        <p>Wysokokaloryczny opał na sezon grzewczy. Dostępny luzem i w workach.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ZESPÓŁ CTA -->
-<div style="background: var(--light);">
-  <div class="zespol-cta-inner fade-in">
-    <div class="text">
-      <p class="section-label">Zespół</p>
-      <h2 class="section-title" style="margin-bottom:.5rem;">Poznaj naszą kadrę</h2>
-      <p style="color: var(--earth); max-width:500px;">Doświadczony zarząd i wykwalifikowani kierownicy działów – ludzie, którzy stoją za codzienną pracą Kruszywa S.A.</p>
+<div class="dlaczego-section">
+  <div class="dlaczego-inner">
+    <div class="fade-in">
+      <p class="section-eyebrow">Atuty</p>
+      <h2 class="section-title">Dlaczego my?</h2>
     </div>
-    <a href="kadra.html" class="btn btn-primary" style="flex-shrink:0;">Zobacz kadrę →</a>
+    <div>
+      <div class="feature fade-in">
+        <span class="feature-num">01</span>
+        <div><h4>Dostępność 7 dni w tygodniu</h4><p>Pracujemy od rana do wieczora, również w niedziele handlowe.</p></div>
+      </div>
+      <div class="feature fade-in">
+        <span class="feature-num">02</span>
+        <div><h4>Własny transport</h4><p>Dostarczamy zamówiony towar szybko i pod wskazany adres bez pośredników.</p></div>
+      </div>
+      <div class="feature fade-in">
+        <span class="feature-num">03</span>
+        <div><h4>Lokalna jakość</h4><p>Znamy potrzeby rynku budowlanego w Lubieni i całym powiecie starachowickim.</p></div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div style="background: var(--white);">
-  <section id="godziny" style="max-width:1200px; margin:0 auto;">
-    <div class="fade-in">
-      <h2 class="section-title">Godziny otwarcia</h2>
-      <div class="divider"></div>
-      <table class="hours-table">
-        <tr><td>Poniedziałek – Sobota</td><td><strong>07:00 – 21:00</strong></td></tr>
-        <tr><td>Niedziela</td><td><strong>11:00 – 16:30</strong></td></tr>
-      </table>
-    </div>
-  </section>
+<div class="zespol-cta fade-in">
+  <div>
+    <p class="section-eyebrow">Zespół</p>
+    <h2 class="section-title">Poznaj naszą kadrę</h2>
+    <p style="margin-top:.8rem; font-size:.92rem; color:var(--muted); max-width:460px; line-height:1.75;">Doświadczony zarząd i wykwalifikowani kierownicy — ludzie za codzienną pracą Kruszywa S.A.</p>
+  </div>
+  <a href="kadra.html" class="btn btn-gold">Zobacz kadrę →</a>
 </div>
 
-<div style="background: var(--light);">
-  <section id="kontakt" style="max-width:1200px; margin:0 auto;">
+<div id="godziny" class="godziny-section">
+  <div class="godziny-inner">
     <div class="fade-in">
-      <p class="section-label">Kontakt</p>
-      <h2 class="section-title">Zapraszamy do współpracy</h2>
-      <div class="divider"></div>
+      <p class="section-eyebrow">Kiedy pracujemy</p>
+      <h2 class="section-title">Godziny otwarcia</h2>
     </div>
-    <div class="kontakt-grid">
-      <div class="kontakt-card fade-in">
-        <h4>Zadzwoń</h4>
-        <a href="tel:+48576233199" style="text-decoration:none; color:var(--accent); font-size:1.5rem; font-weight:bold;">576 233 199</a>
+    <div class="hours-rows fade-in">
+      <div class="hours-row">
+        <span class="hours-day">Poniedziałek – Sobota</span>
+        <span class="hours-time">07:00 – 21:00</span>
       </div>
-      <div class="kontakt-card fade-in">
-        <h4>Napisz e-mail</h4>
-        <a href="mailto:KruszywaLubienia@proton.me" style="text-decoration:none; color:var(--accent); font-size:1.5rem; font-weight:bold;">KruszywaLubienia@proton.me</a>
-      </div>
-      <div class="kontakt-card fade-in">
-        <h4>Adres</h4>
-        <p>Lubienia, Starachowicka 56<br>27-230, pow. starachowicki</p>
+      <div class="hours-row">
+        <span class="hours-day">Niedziela</span>
+        <span class="hours-time">11:00 – 16:30</span>
       </div>
     </div>
+  </div>
+</div>
 
+<section id="kontakt">
+  <div class="kontakt-wrap">
+    <div class="fade-in">
+      <p class="section-eyebrow">Kontakt</p>
+      <h2 class="section-title">Zapraszamy do współpracy</h2>
+    </div>
+    <div class="kontakt-grid fade-in">
+      <div class="kontakt-card">
+        <p class="kontakt-label">Telefon</p>
+        <a href="tel:+48576233199" class="kontakt-value">576 233 199</a>
+      </div>
+      <div class="kontakt-card">
+        <p class="kontakt-label">E-mail</p>
+        <a href="mailto:KruszywaLubienia@proton.me" class="kontakt-value" style="font-size:1.05rem; letter-spacing:.02em;">KruszywaLubienia@proton.me</a>
+      </div>
+      <div class="kontakt-card">
+        <p class="kontakt-label">Adres</p>
+        <p class="kontakt-plain">Lubienia, Starachowicka 56<br>27-230, pow. starachowicki</p>
+      </div>
+    </div>
     <div class="map-wrap fade-in">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10103.4682054611!2d21.1685!3d51.0435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47182f6e9114757b%3A0x6431f4784a36f564!2s27-230%20Lubienia!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" allowfullscreen="" loading="lazy"></iframe>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <footer>
-  <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia · Solidne materiały dla Twojej budowy</p>
+  <p class="footer-copy">© 2026 <span>Kruszywa S.A.</span> · Lubienia</p>
   <div class="footer-links">
     <a href="kadra.html">Kadra</a>
     <a href="historia.html">Historia</a>
@@ -428,14 +292,8 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
