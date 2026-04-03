@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Regulamin – Kruszywa S.A.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:  #0a0a0a;
+      --dark:   #111111;
+      --panel:  #161616;
+      --border: #242424;
+      --gold:   #c9a050;
+      --gold2:  #e8c07a;
+      --white:  #f0ece4;
+      --muted:  #606060;
+      --text:   #c0bcb4;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 68px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      background: rgba(10,10,10,.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .12em; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: .76rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 140px 2rem 80px; text-align: center; position: relative; overflow: hidden; border-bottom: 1px solid var(--border);
+    }
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,160,80,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,160,80,.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .page-header::after {
+      content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,160,80,.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .breadcrumb { font-size: .68rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; position: relative; }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: .06em; color: var(--white); position: relative; }
+    .page-header p { margin-top: .8rem; font-size: .95rem; font-weight: 300; color: var(--muted); position: relative; }
+
+    /* LAYOUT */
+    .page-content { max-width: 860px; margin: 0 auto; padding: 90px 2rem 120px; }
+
+    .section-eyebrow { font-size: .7rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; display: flex; align-items: center; gap: .8rem; }
+    .section-eyebrow::after { content: ''; display: block; width: 50px; height: 1px; background: var(--gold); opacity: .4; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .05em; color: var(--white); line-height: 1; }
+
+    /* LEAD */
+    .lead {
+      font-size: 1.1rem; font-weight: 300; line-height: 1.85; color: var(--text);
+      margin-bottom: 5rem; padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 3rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, var(--gold), rgba(201,160,80,.08));
+    }
+
+    .timeline-entry { position: relative; margin-bottom: 4rem; }
+    .timeline-entry:last-child { margin-bottom: 0; }
+
+    .timeline-entry::before {
+      content: ''; position: absolute; left: -3rem; top: 6px;
+      width: 10px; height: 10px;
+      background: var(--gold); border-radius: 50%;
+      transform: translateX(-4.5px);
+      box-shadow: 0 0 0 4px rgba(201,160,80,.15), 0 0 12px rgba(201,160,80,.2);
+    }
+
+    .timeline-year {
+      font-size: .68rem; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem;
+    }
+
+    .timeline-title {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .05em; color: var(--white); margin-bottom: .8rem;
+    }
+
+    .timeline-body { font-size: .95rem; line-height: 1.82; color: var(--muted); }
+
+    /* CYTAT */
+    .quote-block {
+      border: 1px solid var(--border); background: var(--panel);
+      padding: 3.5rem 4rem; margin: 5rem 0; position: relative; overflow: hidden;
+    }
+    .quote-block::before {
+      content: '"'; position: absolute; top: -1.5rem; left: 2.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 10rem; color: var(--gold); opacity: .08; line-height: 1;
+      pointer-events: none;
+    }
+    .quote-block::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); opacity: .6;
+    }
+    .quote-block p { font-size: 1.15rem; font-weight: 300; line-height: 1.8; color: var(--text); position: relative; }
+    .quote-author { margin-top: 1.5rem; font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+    /* WARTOŚCI */
+    .wartosci { margin-top: 5rem; padding-top: 5rem; border-top: 1px solid var(--border); }
+    .wartosci-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
+    .wartosc-card { background: var(--panel); padding: 2.5rem; position: relative; overflow: hidden; transition: background .3s; }
+    .wartosc-card:hover { background: #1c1c1c; }
+    .wartosc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+    .wartosc-card:hover::before { transform: scaleX(1); }
+    .wartosc-card h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .06em; color: var(--white); margin-bottom: .7rem; }
+    .wartosc-card p { font-size: .88rem; line-height: 1.72; color: var(--muted); }
+
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: .76rem; letter-spacing: .1em; color: var(--muted); }
+    .footer-copy span { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* FADE */
+    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .page-content { padding: 60px 1.5rem 80px; }
+      .quote-block { padding: 2.5rem 2rem; }
+      .wartosci-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Kruszywa S.A.</a>
+  <ul class="nav-links">
+    <li><a href="index.html#oferta">Oferta</a></li>
+    <li><a href="kadra.html">Kadra</a></li>
+    <li><a href="historia.html">Historia</a></li>
+    <li><a href="index.html#godziny">Godziny</a></li>
+    <li><a href="index.html#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="index.html">Kruszywa S.A.</a> &nbsp;/&nbsp; Regulamin</p>
+  <h1>Regulamin</h1>
+</div>
+
+<div class="page-content">
+
+  <h1 class="lead">Regulamin strony internetowej Kruszywa Spółka Akcyjna</h1>
+
+  <p>
+          1. Postanowienia ogólne
+      Niniejsza Polityka Prywatności określa zasady przetwarzania danych osobowych oraz korzystania z plików cookies w związku z korzystaniem ze strony internetowej prowadzonej przez Kruszywa Spółka Akcyjna z siedzibą w Lubieni, ul. Starachowicka 56, pow. starachowicki, zwanej dalej „Stroną”.
+      
+      Administratorem danych osobowych jest Kruszywa Spółka Akcyjna.
+      
+      Kontakt z Administratorem jest możliwy:
+      
+      e-mail: kruszywalubienia@proton.me
+      
+      telefon: +48 576 233 199
+      
+      2. Zakres przetwarzanych danych
+      Strona ma charakter informacyjny i umożliwia kontakt z Administratorem za pośrednictwem danych teleadresowych.
+      
+      Administrator może przetwarzać dane osobowe Użytkownika wyłącznie w zakresie niezbędnym do:
+      
+      udzielenia odpowiedzi na wiadomość e-mail,
+      
+      prowadzenia kontaktu telefonicznego,
+      
+      realizacji prawnie uzasadnionych interesów Administratora.
+      
+      Jeżeli Użytkownik kontaktuje się z Administratorem, przetwarzane mogą być dane zawarte w treści wiadomości, w tym imię, nazwisko, adres e-mail, numer telefonu oraz inne dane dobrowolnie podane przez Użytkownika.
+      
+      3. Cele i podstawy prawne przetwarzania
+      Dane osobowe są przetwarzane w następujących celach:
+      
+      kontaktu z Użytkownikiem,
+      
+      udzielenia odpowiedzi na zapytanie,
+      
+      zapewnienia prawidłowego działania Strony,
+      
+      ewentualnego dochodzenia lub obrony przed roszczeniami.
+      
+      Podstawą prawną przetwarzania danych jest:
+      
+      art. 6 ust. 1 lit. a RODO – zgoda Użytkownika, jeśli została wyrażona,
+      
+      art. 6 ust. 1 lit. b RODO – gdy przetwarzanie jest niezbędne do podjęcia działań przed zawarciem umowy, jeżeli do takiego kontaktu dochodzi,
+      
+      art. 6 ust. 1 lit. f RODO – prawnie uzasadniony interes Administratora, polegający na prowadzeniu korespondencji, obsłudze zapytań i obronie przed roszczeniami.
+      
+      4. Odbiorcy danych
+      Dane osobowe Użytkowników mogą być ujawniane podmiotom współpracującym z Administratorem wyłącznie w zakresie niezbędnym do realizacji celów wskazanych w niniejszej Polityce.
+      
+      Odbiorcami danych mogą być w szczególności dostawcy usług IT, hostingu, poczty elektronicznej oraz podmioty świadczące wsparcie techniczne.
+      
+      Dane nie są przekazywane do państw trzecich, chyba że wynika to z wykorzystywanych narzędzi informatycznych i zostały zapewnione odpowiednie zabezpieczenia wymagane przez przepisy prawa.
+      
+      5. Okres przechowywania danych
+      Dane osobowe przetwarzane w celu kontaktu przechowywane są przez czas niezbędny do udzielenia odpowiedzi i prowadzenia korespondencji, a następnie przez okres niezbędny do zabezpieczenia ewentualnych roszczeń.
+      
+      W przypadku przetwarzania danych na podstawie zgody, dane będą przetwarzane do czasu jej cofnięcia.
+      
+      W przypadku obowiązków wynikających z przepisów prawa dane mogą być przechowywane przez okres wymagany tymi przepisami.
+      
+      6. Prawa osoby, której dane dotyczą
+      Użytkownik ma prawo do:
+      
+      dostępu do swoich danych,
+      
+      sprostowania danych,
+      
+      usunięcia danych,
+      
+      ograniczenia przetwarzania,
+      
+      wniesienia sprzeciwu wobec przetwarzania,
+      
+      przenoszenia danych, jeśli ma to zastosowanie,
+      
+      cofnięcia zgody w dowolnym momencie, jeśli przetwarzanie odbywa się na podstawie zgody.
+      
+      Użytkownik ma prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych, jeżeli uzna, że przetwarzanie jego danych osobowych narusza przepisy prawa.
+      
+      7. Dobrowolność podania danych
+      Podanie danych osobowych jest dobrowolne, lecz może być niezbędne do uzyskania odpowiedzi na wiadomość lub kontaktu z Administratorem.
+      
+      Niepodanie danych może uniemożliwić sprawne rozpatrzenie zapytania.
+      
+      8. Pliki cookies
+      Strona może wykorzystywać pliki cookies w celu zapewnienia jej prawidłowego działania oraz poprawy jakości korzystania ze Strony.
+      
+      Pliki cookies mogą mieć charakter:
+      
+      techniczny, niezbędny do prawidłowego działania Strony,
+      
+      analityczny, jeśli takie narzędzia zostaną wdrożone.
+      
+      Użytkownik może zarządzać plikami cookies za pomocą ustawień swojej przeglądarki internetowej.
+      
+      Ograniczenie stosowania plików cookies może wpłynąć na niektóre funkcjonalności Strony.
+      
+      9. Bezpieczeństwo danych
+      Administrator stosuje środki techniczne i organizacyjne mające na celu ochronę danych osobowych przed utratą, nieuprawnionym dostępem, ujawnieniem, zmianą lub zniszczeniem.
+      
+      Dostęp do danych mają wyłącznie osoby upoważnione przez Administratora.
+      
+      10. Postanowienia końcowe
+      Administrator zastrzega sobie prawo do zmiany niniejszej Polityki Prywatności w przypadku zmiany przepisów prawa, technologii lub zasad funkcjonowania Strony.
+      
+      Aktualna wersja Polityki Prywatności jest publikowana na Stronie.
+      
+      W sprawach nieuregulowanych zastosowanie mają przepisy prawa polskiego oraz RODO.
+    
+  </p>
+
+</div>
