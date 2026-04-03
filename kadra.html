@@ -5,283 +5,172 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Kadra – Kruszywa S.A.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --brown:   #3b2b1a;
-      --earth:   #6b4c2a;
-      --sand:    #c9a96e;
-      --light:   #f5f0e8;
-      --white:   #ffffff;
-      --gray:    #888;
-      --accent:  #d4891a;
+      --black:  #0a0a0a;
+      --dark:   #111111;
+      --panel:  #161616;
+      --border: #242424;
+      --gold:   #c9a050;
+      --gold2:  #e8c07a;
+      --white:  #f0ece4;
+      --muted:  #606060;
+      --text:   #c0bcb4;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; }
 
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      background: var(--light);
-      color: var(--brown);
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--brown);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 70px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 68px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      background: rgba(10,10,10,.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .12em; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: .76rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
 
-    .nav-logo {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--sand);
-      letter-spacing: .05em;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Oswald', sans-serif;
-      font-size: .95rem;
-      font-weight: 400;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #ccc;
-      text-decoration: none;
-      transition: color .2s;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: var(--sand); }
-
-    /* ── PAGE HEADER ── */
+    /* PAGE HEADER */
     .page-header {
-      background: var(--brown);
-      padding: 80px 2rem 70px;
+      padding: 140px 2rem 80px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      border-bottom: 1px solid var(--border);
     }
-
     .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(135deg, transparent, transparent 18px, rgba(255,255,255,.02) 18px, rgba(255,255,255,.02) 19px);
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,160,80,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,160,80,.03) 1px, transparent 1px);
+      background-size: 64px 64px;
     }
-
-    .page-header .breadcrumb {
-      font-family: 'Oswald', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--sand);
-      opacity: .7;
-      margin-bottom: 1rem;
-      position: relative;
+    .page-header::after {
+      content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,160,80,.06) 0%, transparent 65%);
+      pointer-events: none;
     }
+    .breadcrumb { font-size: .68rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; position: relative; }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: .06em; color: var(--white); position: relative; }
+    .page-header p { margin-top: .8rem; font-size: .95rem; font-weight: 300; color: var(--muted); position: relative; }
 
-    .page-header .breadcrumb a {
-      color: inherit;
-      text-decoration: none;
-    }
+    /* LAYOUT */
+    .page-content { max-width: 1200px; margin: 0 auto; padding: 90px 2rem 110px; }
 
-    .page-header h1 {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 700;
-      color: var(--sand);
-      position: relative;
-    }
+    .section-eyebrow { font-size: .7rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; display: flex; align-items: center; gap: .8rem; }
+    .section-eyebrow::after { content: ''; display: block; width: 50px; height: 1px; background: var(--gold); opacity: .4; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .05em; color: var(--white); line-height: 1; }
+    .section-header { margin-bottom: 3rem; }
 
-    .page-header p {
-      margin-top: .8rem;
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: #bbb;
-      position: relative;
-    }
-
-    /* ── LAYOUT ── */
-    .page-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 2rem;
-    }
-
-    .section-label {
-      font-family: 'Oswald', sans-serif;
-      font-size: .75rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .6rem;
-    }
-
-    .section-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 600;
-      color: var(--brown);
-    }
-
-    .divider {
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin: 1.2rem 0 2.5rem;
-    }
-
-    /* ── ZARZĄD ── */
+    /* ZARZĄD GRID */
     .zarzad-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.8rem;
-      margin-bottom: 5rem;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 1px;
     }
 
-    .zarzad-card {
-      background: var(--white);
-      border-top: 5px solid var(--earth);
+    /* KIEROWNICY GRID */
+    .kierownicy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    /* KARTY */
+    .zarzad-card, .kierownik-card {
+      background: var(--panel);
       overflow: hidden;
-      transition: transform .3s, box-shadow .3s;
+      position: relative;
+      transition: background .3s;
     }
 
-    .zarzad-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(59,43,26,.15);
+    .zarzad-card:hover, .kierownik-card:hover { background: #1c1c1c; }
+
+    /* Złota kreska na górze przy hover */
+    .zarzad-card::before, .kierownik-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s;
+      z-index: 2;
+    }
+    .zarzad-card:hover::before, .kierownik-card:hover::before { transform: scaleX(1); }
+
+    /* Złota kreska lewa dla zarządu */
+    .zarzad-card::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); opacity: .6;
     }
 
+    /* Zdjęcie */
     .card-photo {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-      background: var(--light);
+      width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;
+      filter: grayscale(.3) contrast(1.05);
+      transition: filter .4s, transform .4s;
+    }
+    .zarzad-card:hover .card-photo, .kierownik-card:hover .card-photo {
+      filter: grayscale(0) contrast(1.08);
+      transform: scale(1.03);
     }
 
     /* Placeholder gdy brak zdjęcia */
     .card-photo-placeholder {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, var(--light) 0%, #e8dfd0 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--sand);
-      font-family: 'Oswald', sans-serif;
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: .05em;
-      user-select: none;
+      width: 100%; aspect-ratio: 1/1;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: .1em; color: var(--border);
     }
 
-    .card-body {
-      padding: 1.4rem 1.6rem 1.6rem;
-    }
+    .card-photo-wrap { overflow: hidden; }
+
+    .card-body { padding: 1.4rem 1.6rem 1.8rem; }
 
     .card-role {
-      font-family: 'Oswald', sans-serif;
-      font-size: .72rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .3rem;
-    }
-
-    .card-role-extra {
-      font-size: .8rem;
-      color: var(--gray);
-      margin-top: .15rem;
+      font-size: .68rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: .35rem;
     }
 
     .card-name {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--brown);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: .06em; color: var(--white); line-height: 1.1;
     }
 
-    /* ── KIEROWNICY ── */
-    .kierownicy-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.8rem;
+    .card-role-extra {
+      font-size: .78rem; color: var(--muted); margin-top: .3rem;
     }
 
-    .kierownik-card {
-      background: var(--white);
-      border-top: 5px solid var(--accent);
-      overflow: hidden;
-      transition: transform .3s, box-shadow .3s;
-    }
+    /* SEKCJA SEPARATOR */
+    .section-gap { margin-top: 5rem; padding-top: 5rem; border-top: 1px solid var(--border); }
 
-    .kierownik-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(59,43,26,.12);
-    }
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: .76rem; letter-spacing: .1em; color: var(--muted); }
+    .footer-copy span { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
 
-    /* ── FOTO HINT ── */
-    .foto-hint {
-      background: rgba(212,137,26,.08);
-      border: 1px dashed rgba(212,137,26,.4);
-      border-radius: 4px;
-      padding: 1rem 1.4rem;
-      margin-bottom: 3rem;
-      font-size: .9rem;
-      color: var(--earth);
-      line-height: 1.6;
-    }
-
-    .foto-hint strong { color: var(--accent); }
-    .foto-hint code {
-      background: rgba(212,137,26,.12);
-      padding: .1em .4em;
-      border-radius: 3px;
-      font-size: .85em;
-    }
-
-    /* ── STOPKA ── */
-    footer { background: var(--brown); color: #888; text-align: center; padding: 3rem 1rem; }
-    footer span { color: var(--sand); font-weight: bold; }
-    .footer-links { margin-top: 1rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .footer-links a { color: #888; text-decoration: none; font-size: .9rem; transition: color .2s; }
-    .footer-links a:hover { color: var(--sand); }
-
-    /* ── ANIMACJE ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
+    /* FADE */
+    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
-      .page-content { padding: 50px 1.5rem; }
+      .page-content { padding: 60px 1.5rem 80px; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">KRUSZYWA S.A.</a>
+  <a class="nav-logo" href="index.html">Kruszywa S.A.</a>
   <ul class="nav-links">
     <li><a href="index.html#oferta">Oferta</a></li>
     <li><a href="kadra.html" class="active">Kadra</a></li>
@@ -300,16 +189,16 @@
 <div class="page-content">
 
   <!-- ZARZĄD -->
-  <div class="fade-in">
-    <p class="section-label">Zarząd spółki</p>
+  <div class="section-header fade-in">
+    <p class="section-eyebrow">Zarząd spółki</p>
     <h2 class="section-title">Zarząd</h2>
-    <div class="divider"></div>
   </div>
 
   <div class="zarzad-grid">
-
     <div class="zarzad-card fade-in">
-      <img src="zdjecia/zarzadf.png" class="card-photo" alt="Filip Kozieł">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/zarzadf.png" class="card-photo" alt="Filip Kozieł">
+      </div>
       <div class="card-body">
         <p class="card-role">Prezes Zarządu</p>
         <p class="card-name">Filip Kozieł</p>
@@ -317,7 +206,9 @@
     </div>
 
     <div class="zarzad-card fade-in">
-      <img src="zdjecia/zarzadb.png" class="card-photo" alt="Bartosz Szymon Marczak">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/zarzadb.png" class="card-photo" alt="Bartosz Szymon Marczak">
+      </div>
       <div class="card-body">
         <p class="card-role">Wiceprezes</p>
         <p class="card-name">Bartosz Szymon Marczak</p>
@@ -326,7 +217,9 @@
     </div>
 
     <div class="zarzad-card fade-in">
-      <img src="zdjecia/zarzadm.png" class="card-photo" alt="Makary Majchrzyk">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/zarzadm.png" class="card-photo" alt="Makary Majchrzyk">
+      </div>
       <div class="card-body">
         <p class="card-role">Wiceprezes</p>
         <p class="card-name">Makary Majchrzyk</p>
@@ -335,26 +228,27 @@
     </div>
 
     <div class="zarzad-card fade-in">
-      <img src="zdjecia/zarzadg.png" class="card-photo" alt="Gabriel Gredziak">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/zarzadg.png" class="card-photo" alt="Gabriel Grędziak">
+      </div>
       <div class="card-body">
         <p class="card-role">Inwestor</p>
         <p class="card-name">Gabriel Grędziak</p>
       </div>
     </div>
-
   </div>
 
   <!-- KIEROWNICY -->
-  <div class="fade-in">
-    <p class="section-label">Kadra kierownicza</p>
+  <div class="section-gap section-header fade-in">
+    <p class="section-eyebrow">Kadra kierownicza</p>
     <h2 class="section-title">Kierownicy Działów</h2>
-    <div class="divider"></div>
   </div>
 
   <div class="kierownicy-grid">
-
     <div class="kierownik-card fade-in">
-      <img src="zdjecia/marekk.png" class="card-photo" alt="Marek Adach">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/marekk.png" class="card-photo" alt="Marek Adach">
+      </div>
       <div class="card-body">
         <p class="card-role">Kierownik</p>
         <p class="card-name">Marek Adach</p>
@@ -363,7 +257,9 @@
     </div>
 
     <div class="kierownik-card fade-in">
-      <img src="zdjecia/dong.png" class="card-photo" alt="Wiktor Piotrowicz">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/dong.png" class="card-photo" alt="Wiktor Piotrowicz">
+      </div>
       <div class="card-body">
         <p class="card-role">Kierownik</p>
         <p class="card-name">Wiktor Piotrowicz</p>
@@ -372,7 +268,9 @@
     </div>
 
     <div class="kierownik-card fade-in">
-      <img src="zdjecia/natan.png" class="card-photo" alt="Natan Kopacz">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/natan.png" class="card-photo" alt="Natan Kopacz">
+      </div>
       <div class="card-body">
         <p class="card-role">Kierownik</p>
         <p class="card-name">Natan Kopacz</p>
@@ -381,7 +279,9 @@
     </div>
 
     <div class="kierownik-card fade-in">
-      <img src="zdjecia/igor.png" class="card-photo" alt="Igor Łojek">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/igor.png" class="card-photo" alt="Igor Łojek">
+      </div>
       <div class="card-body">
         <p class="card-role">Zastępca Kierownika</p>
         <p class="card-name">Igor Łojek</p>
@@ -390,36 +290,31 @@
     </div>
 
     <div class="kierownik-card fade-in">
-      <img src="zdjecia/adam.png" class="card-photo" alt="Adam Stasiuk">
+      <div class="card-photo-wrap">
+        <img src="zdjecia/adam.png" class="card-photo" alt="Adam Stasiuk">
+      </div>
       <div class="card-body">
         <p class="card-role">Kierownik</p>
         <p class="card-name">Adam Stasiuk</p>
         <p class="card-role-extra">Dział Wypalania Kruszyw</p>
       </div>
     </div>
-
   </div>
 
 </div>
 
 <footer>
-  <p>© 2026 <span>Kruszywa S.A.</span> · Lubienia · Solidne materiały dla Twojej budowy</p>
+  <p class="footer-copy">© 2026 <span>Kruszywa S.A.</span> · Lubienia</p>
   <div class="footer-links">
-    <a href="index.html">Strona główna</a>
+    <a href="index.html">Główna</a>
     <a href="historia.html">Historia</a>
     <a href="index.html#kontakt">Kontakt</a>
   </div>
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
